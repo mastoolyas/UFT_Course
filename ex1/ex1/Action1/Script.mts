@@ -37,47 +37,50 @@ If a = False Then
 	ExitRun
 End If @@ hightlight id_;_1050546_;_script infofile_;_ZIP::ssf60.xml_;_
  
- 
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Check CheckPoint("fromCity") @@ hightlight id_;_1980128584_;_script infofile_;_ZIP::ssf61.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("toCity").Check CheckPoint("toCity") @@ hightlight id_;_1980129016_;_script infofile_;_ZIP::ssf62.xml_;_
-'ex 9.2 option1
-i = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetItemsCount
-ReDim arrFrom(i-1)
-For Iterator = 0 To i-1 Step 1
-    arrFrom(Iterator) = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetItem(Iterator)
-    'print arrFrom(Iterator)
-Next
-
-'option2
-'all = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetROProperty("All Items")
-'print all
-
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Select arrFrom(5) @@ hightlight id_;_2114732952_;_script infofile_;_ZIP::ssf20.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("toCity").Select "London" @@ hightlight id_;_1942633800_;_script infofile_;_ZIP::ssf22.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("Class").Select "First" @@ hightlight id_;_2114737944_;_script infofile_;_ZIP::ssf26.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTickets").Select "6" @@ hightlight id_;_2114738136_;_script infofile_;_ZIP::ssf28.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfCalendar("datePicker").SetDate currentDate @@ hightlight id_;_2120995912_;_script infofile_;_ZIP::ssf70.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfButton("FIND FLIGHTS").Click @@ hightlight id_;_2114737896_;_script infofile_;_ZIP::ssf29.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfTable("flightsDataGrid").SelectCell 1,1 @@ hightlight id_;_2114738568_;_script infofile_;_ZIP::ssf30.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfButton("SELECT FLIGHT").Click @@ hightlight id_;_2114738760_;_script infofile_;_ZIP::ssf31.xml_;_
-'WpfWindow("Micro Focus MyFlight Sample").WpfButton("ORDER").Check CheckPoint("ORDER")
-wpfWindow("Micro Focus MyFlight Sample").WpfEdit("passengerName").Set passName @@ hightlight id_;_2114740632_;_script infofile_;_ZIP::ssf32.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfButton("ORDER").Click @@ hightlight id_;_2114739960_;_script infofile_;_ZIP::ssf35.xml_;_
-
-wpfWindow("Micro Focus MyFlight Sample").WpfButton("ORDER").Check CheckPoint("ORDER") @@ hightlight id_;_2089577288_;_script infofile_;_ZIP::ssf63.xml_;_
-'Auto Sync
-'WpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").WaitProperty "text", "2" , 10000 @@ hightlight id_;_2083469584_;_script infofile_;_ZIP::ssf41.xml_;_
-'wait 4
-
-'My Sync ex 9.3
-Do 
-	i = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").GetAllROProperties("Enabled")
-Loop while i = False
-
-' WpfWindow("Micro Focus MyFlight Sample").WpfObject("Order completed").Exist(5)
-
-OrderNumber = split(wpfWindow("Micro Focus MyFlight Sample").WpfObject("Order completed").GetROProperty("text"), " ")
-print OrderNumber(1)
+' 
+'wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Check CheckPoint("fromCity") @@ hightlight id_;_1980128584_;_script infofile_;_ZIP::ssf61.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("toCity").Check CheckPoint("toCity") @@ hightlight id_;_1980129016_;_script infofile_;_ZIP::ssf62.xml_;_
+''ex 9.2 option1
+'i = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetItemsCount
+'ReDim arrFrom(i-1)
+'For Iterator = 0 To i-1 Step 1
+'    arrFrom(Iterator) = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetItem(Iterator)
+'    'print arrFrom(Iterator)
+'Next
+'
+''option2
+''all = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetROProperty("All Items")
+''print all
+'
+'wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Select arrFrom(5) @@ hightlight id_;_2114732952_;_script infofile_;_ZIP::ssf20.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("toCity").Select "London" @@ hightlight id_;_1942633800_;_script infofile_;_ZIP::ssf22.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("Class").Select "First" @@ hightlight id_;_2114737944_;_script infofile_;_ZIP::ssf26.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTickets").Select "6" @@ hightlight id_;_2114738136_;_script infofile_;_ZIP::ssf28.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfCalendar("datePicker").SetDate currentDate @@ hightlight id_;_2120995912_;_script infofile_;_ZIP::ssf70.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfButton("FIND FLIGHTS").Click @@ hightlight id_;_2114737896_;_script infofile_;_ZIP::ssf29.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfTable("flightsDataGrid").SelectCell 1,1 @@ hightlight id_;_2114738568_;_script infofile_;_ZIP::ssf30.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfButton("SELECT FLIGHT").Click @@ hightlight id_;_2114738760_;_script infofile_;_ZIP::ssf31.xml_;_
+''WpfWindow("Micro Focus MyFlight Sample").WpfButton("ORDER").Check CheckPoint("ORDER")
+'wpfWindow("Micro Focus MyFlight Sample").WpfEdit("passengerName").Set passName @@ hightlight id_;_2114740632_;_script infofile_;_ZIP::ssf32.xml_;_
+'wpfWindow("Micro Focus MyFlight Sample").WpfButton("ORDER").Click @@ hightlight id_;_2114739960_;_script infofile_;_ZIP::ssf35.xml_;_
+'
+'wpfWindow("Micro Focus MyFlight Sample").WpfButton("ORDER").Check CheckPoint("ORDER") @@ hightlight id_;_2089577288_;_script infofile_;_ZIP::ssf63.xml_;_
+''Auto Sync
+''WpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").WaitProperty "text", "2" , 10000 @@ hightlight id_;_2083469584_;_script infofile_;_ZIP::ssf41.xml_;_
+''wait 4
+'
+''My Sync ex 9.3
+'Do 
+'	i = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").GetAllROProperties("Enabled")
+'Loop while i = False
+'
+'' WpfWindow("Micro Focus MyFlight Sample").WpfObject("Order completed").Exist(5)
+'
+'OrderNumber = split(wpfWindow("Micro Focus MyFlight Sample").WpfObject("Order completed").GetROProperty("text"), " ")
+'print OrderNumber(1)
+'
+'Ex 10.2
+a = fCreateOrder ("London", "Paris", "2", currentDate, "First", passName) 
 
 'Ex9.4
 numOFtickets = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").GetROProperty("text")
