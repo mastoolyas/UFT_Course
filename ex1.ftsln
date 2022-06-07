@@ -7,7 +7,6 @@ Project("") = "ex1", "ex1\ex1\Test.tsp", "E5700539-5B67-4FE5-A25E-555DF9E7C2E3"
 		PathInformation = Z:\Yaron\UFT\ex1\ex1\Test.tsp
 		Keyword = QTP
 		OpenAsReadOnly = False
-		BaselineId = 
 	EndProjectSection
 EndProject
 Global
@@ -20,5 +19,8 @@ Global
 		E5700539-5B67-4FE5-A25E-555DF9E7C2E3.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		E5700539-5B67-4FE5-A25E-555DF9E7C2E3.Release|Any CPU.Build.0 = Release|Any CPU
 		E5700539-5B67-4FE5-A25E-555DF9E7C2E3.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(Function Libraries) = postProject
+		Func = Z:\Yaron\UFT\Func.qfl
 	EndGlobalSection
 EndGlobal

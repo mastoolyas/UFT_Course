@@ -22,15 +22,20 @@ End If
 
 SystemUtil.Run FLIGHT_APP
 
-If WpfWindow("Login").Exist(5) = false Then
+'If WpfWindow("Login").Exist(5) = false Then
+'	ExitRun
+'End If
+'
+'
+'WpfWindow("Login").WpfEdit("agentName").Set passName @@ hightlight id_;_2082978080_;_script infofile_;_ZIP::ssf48.xml_;_
+'WpfWindow("Login").WpfEdit("password").SetSecure "6295be5065320f91c848" @@ hightlight id_;_2082969392_;_script infofile_;_ZIP::ssf49.xml_;_
+'WpfWindow("Login").WpfButton("OK").Click @@ hightlight id_;_2082286784_;_script infofile_;_ZIP::ssf50.xml_;_
+pass1 = "6295be5065320f91c848"
+'Ex 10.2
+a = fLogIn(passName, pass1)
+If a = False Then
 	ExitRun
-End If
-
-
-WpfWindow("Login").WpfEdit("agentName").Set passName @@ hightlight id_;_2082978080_;_script infofile_;_ZIP::ssf48.xml_;_
-WpfWindow("Login").WpfEdit("password").SetSecure "6295be5065320f91c848" @@ hightlight id_;_2082969392_;_script infofile_;_ZIP::ssf49.xml_;_
-WpfWindow("Login").WpfButton("OK").Click @@ hightlight id_;_2082286784_;_script infofile_;_ZIP::ssf50.xml_;_
- @@ hightlight id_;_1050546_;_script infofile_;_ZIP::ssf60.xml_;_
+End If @@ hightlight id_;_1050546_;_script infofile_;_ZIP::ssf60.xml_;_
  
  
 wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Check CheckPoint("fromCity") @@ hightlight id_;_1980128584_;_script infofile_;_ZIP::ssf61.xml_;_
@@ -44,13 +49,13 @@ For Iterator = 0 To i-1 Step 1
 Next
 
 'option2
-all = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetROProperty("All Items")
-print all
+'all = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").GetROProperty("All Items")
+'print all
 
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Select "Denver" @@ hightlight id_;_2114732952_;_script infofile_;_ZIP::ssf20.xml_;_
+wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Select arrFrom(5) @@ hightlight id_;_2114732952_;_script infofile_;_ZIP::ssf20.xml_;_
 wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("toCity").Select "London" @@ hightlight id_;_1942633800_;_script infofile_;_ZIP::ssf22.xml_;_
 wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("Class").Select "First" @@ hightlight id_;_2114737944_;_script infofile_;_ZIP::ssf26.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTickets").Select "2" @@ hightlight id_;_2114738136_;_script infofile_;_ZIP::ssf28.xml_;_
+wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTickets").Select "6" @@ hightlight id_;_2114738136_;_script infofile_;_ZIP::ssf28.xml_;_
 wpfWindow("Micro Focus MyFlight Sample").WpfCalendar("datePicker").SetDate currentDate @@ hightlight id_;_2120995912_;_script infofile_;_ZIP::ssf70.xml_;_
 wpfWindow("Micro Focus MyFlight Sample").WpfButton("FIND FLIGHTS").Click @@ hightlight id_;_2114737896_;_script infofile_;_ZIP::ssf29.xml_;_
 wpfWindow("Micro Focus MyFlight Sample").WpfTable("flightsDataGrid").SelectCell 1,1 @@ hightlight id_;_2114738568_;_script infofile_;_ZIP::ssf30.xml_;_
@@ -83,9 +88,9 @@ numOFtickets = CDbl(numOFtickets)
 pricePerTicket = CDbl(mid(pricePerTicket,2))
 totalPrice = CDbl(mid(totalPrice,2))
 
-check = numOFtickets * pricePerTicket
-'WpfWindow("Micro Focus MyFlight Sample").WpfObject("totalPrice").Check CheckPoint("$198.00")
-If  check = totalPrice Then
+check = fDivide(totalPrice, pricePerTicket)
+
+If  check = numOFtickets Then
 
 	print "totalPrice is OK"
 else
