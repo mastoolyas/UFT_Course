@@ -1,0 +1,389 @@
+<html>
+<head>
+<title>QTP Web Demo</title>
+<style type="text/css" id=MyStyles>
+						.FamilyMobile{
+						Display: none;
+						} 
+						.FamilyBigPond{
+						Display: none;
+						} 
+						.groupHeader{
+						FONT-WEIGHT: bold; 
+						FONT-SIZE: 12px;
+						COLOR: #5D6773 ; 
+						BORDER-BOTTOM: #EEEEEE 1px solid; 
+						HEIGHT: 20px; 
+						BACKGROUND-COLOR: white;
+						text-align: left;
+						padding-top: 3px
+						}
+			TABLE {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            }       
+        DIV {
+            border-width: 1px;
+            border-color: black;
+            border-style: solid;
+            }  
+            .Loading {
+            position: relative;
+            top: -600px;
+            left: 100px;
+            Display: none;
+            width: 250px;
+            height: 30px;
+            border: 1px #000000 solid;
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 30px; 
+            COLOR: #000000; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            BACKGROUND-COLOR: #607B8B;
+            filter:progid:DXImageTransform.Microsoft.MotionBlur(strength=13, direction=310);
+            filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=2);
+            filter:progid:DXImageTransform.Microsoft.Wheel(duration=3);
+            } 
+            .LoadingLeft {
+            position: relative;
+            top: -400px;
+            left: -450px;
+            Display: none;
+            width: 250px;
+            height: 30px;
+            border: 1px #000000 solid;
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 30px; 
+            COLOR: #000000; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            BACKGROUND-COLOR: #607B8B;
+            filter:progid:DXImageTransform.Microsoft.MotionBlur(strength=13, direction=310);
+            filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=2);
+            filter:progid:DXImageTransform.Microsoft.Wheel(duration=3);
+            }         
+            .Regular {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 100;
+            } 
+            .RegularRO {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            BACKGROUND-COLOR: #F5F5F5;
+            WIDTH: 130;
+            } 
+            .RegularWide {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 130;
+            } 
+            .RegularVeryWide {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 150;
+            }
+            .RegularNarrow {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 30;
+            } 
+	    			.ListRegularNarrow {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 35;
+            }
+            .Flat   {
+            border: 1px solid;  
+            FONT-SIZE: 12px; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 100;
+            }
+            .FlatNoBorder   {
+            border: 0px #000000 solid;  
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 30;
+            }
+            .ListRegularLarge {
+            WIDTH: 140;
+            HEIGHT: 80;
+            border-width: 2px;
+            border-color: black;
+            border-style: solid;
+            }
+            .ShowParentRow {
+            border-width: 2px;
+            border-color: black;
+            border-style: solid;
+            }
+            .HeaderLabel
+						{
+            background-color: #BFEFFF;
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#F0F8FF, endColorstr=#BFEFFF);
+						}
+
+
+
+            
+ 
+    </style>
+
+<head>
+<body ID="B" NAME="B" style="margin-top: 10; background-color: white; font-weight: bold; FONT-FAMILY: Verdana">
+
+
+
+<table style="height: 100%; width:100%">
+	
+	<tr style="height: 100%; width:100%">
+  	<td style="height: 100%; width: 50%; vertical-align:Top" id=tdLeft name=tdLeft>
+	
+    	<table width=500px>
+    			<tr>
+        		
+						<td width=100% style="background-color: #607B8B">
+							<FONT color=white>Execution Parameters</FONT>
+        		
+        	</td>
+        	
+      		</tr>
+     		</table>
+     	
+    		
+    		<table style="border-color: black; border:1px solid" id=tblDetails width=500px>
+    			<tr>
+        		<td>
+        		Env #: 
+        		</TD>
+        	
+        	
+        		
+        		<td>
+        			<select class=RegularWide id="lstEnv">
+        				<option value="Select Env">Select Env</option>
+        				<option value="Env 1">Env 1</option>
+        				<option value="Env 2">Env 2</option>
+        				<option value="Env 3">Env 3</option>
+        				<option value="Env 4">Env 4</option>
+        			</select>
+				    </td>
+				  	
+				  	<td>
+        		SDDB version: 
+        		</TD>
+        		  <td>
+        			<select class=RegularVeryWide id="lstSddbVersion">
+        				<option value="Select SDDB">Select SDDB</option>
+        				<option value="V2.2.3.A.2.1_New_withDerivationRules.xls">V2.2.3.A.2.1_New_withDerivationRules.xls</option>
+        				<option value="V2.2.3.A.2.1_New.xls">V2.2.3.A.2.1_New.xls</option>
+        				<option value="V2.2.3.A.2.1.xls">V2.2.3.A.2.1.xls</option>
+        				<option value="SDDB Release V2.2.3.A.2.xls">SDDB Release V2.2.3.A.2.xls</option>
+        			</select>
+				    </td>
+				    </tr>
+        	<tr>
+        		
+        		<td>
+        		Search By: 
+        		</TD>
+        		<td>
+        			<select class=RegularWide id="lstSearchBy">
+        				<option value="Order ID">Order ID</option>
+        				<option value="ObjID (Order Action)">ObjID (Order Action)</option>
+        				<option value="ObjID (Contract)">ObjID (Contract)</option>
+        			</select>
+            </td>
+        		
+				    <td id=tdFilterLabel>
+        		Order ID: 
+        		</TD>
+        		<td>
+        			<input class=RegularVeryWide id=txtUniqueId OnKeyUp="document.getElementById('btnGetOrders').disabled=false">
+            </td>
+            
+           
+        		
+        	</tr>
+        	
+        	
+        </table>
+         <table>
+
+    			<tr>
+        		<td>
+
+        		<input type=button class=Regular id=btnGetOrders value='Get Orders' disabled>
+        		</td>
+        		
+      		</tr>
+      
+
+    		
+        </table>
+    	 
+      
+    
+ 				<br>
+ 				
+ 				
+ 				<table id=tblOrdersHeader style="display: none" width=500px>
+    			<tr>
+        		
+						<td width=100% style="background-color: #607B8B">
+							<FONT color=white>Orders List</FONT>
+        		
+        	</td>
+        	
+      		</tr>
+     		</table>
+     	
+    		
+    		<table style="border-color: black; border:1px solid; display: none" id=tblOrdersList width=500px>
+    			<thead>
+    			<tr>
+    				<TD>
+    					
+    					
+    				</TD>
+    				
+        		<td>
+						<B>Order ID</B>
+        		
+        		</td>
+        	  
+        	  <td>
+						<B>Type</B>
+        		
+        		</td>
+        		
+    				<td>
+    					<B>Status</B>
+    				</td>
+        		
+        		<td>
+    					<B>Start Date</B>
+    				</td>
+      		</tr>
+
+      	</thead>
+    			
+    			<tbody id=tblOrders>
+    			
+    			
+        </tbody>
+        </table>
+         
+        <table id=tblButtons style="display: none">
+
+    			<tr>
+        		<td>
+
+        		<input type=button class=Regular id=btnValidateXml value='Validate Jobs' disabled=True>
+        		
+        		</td>
+        	  
+    				
+    				
+        		<td>
+
+        		
+        		<input type=button class=Regular id=btnViewReport value='View Report' disabled=True>
+        		</td>
+        		
+      		</tr>
+      
+
+    		
+        </table>
+ 
+ 
+
+        		</td>
+        		<td style="height: 100%; width: 50%; vertical-align:Top" id=tdLeft name=tdLeft>
+        			<table width=500px>
+    			<tr>
+        		
+						<td style="background-color: #607B8B">
+							<FONT color=white>Reports</FONT>
+        		
+        		</td>
+        	  
+        		
+      		</tr>
+     		</table>
+     		
+    		
+    		<table style="border-color: black; border:1px solid" width=500px>
+    			<thead>
+    				<tr>
+    					<td>
+    					
+    				</td>
+        		<td>
+						<B>Column 1</B>
+        		
+        		</td>
+        	  <TD>
+    					
+    					<B>RColumn 2</B>
+    				</TD>
+    				
+        		
+      		</tr>
+      		
+    			</thead>
+    			<tbody id=tblReports>
+				<tr><td><input type=checkbox id=Row0></td><td>Row 1</td><td>Yeeeh</td></tr>
+				<tr><td><input type=checkbox id=Row1></td><td>Row 2</td><td>Noooo</td></tr>
+				<tr><td><input type=checkbox id=Row2></td><td>Row 3</td><td>Yeeeh</td></tr>
+				<tr><td><input type=checkbox id=Row3></td><td>Row 4</td><td>Noooo</td></tr>
+				<tr><td><input type=checkbox id=Row4></td><td>Row 5</td><td>Yeeeh</td></tr>
+				<tr><td><input type=checkbox id=Row5></td><td>Row 6</td><td>Noooo</td></tr>
+				<tr><td><input type=checkbox id=Row6></td><td>Row 7</td><td>Yeeeh</td></tr>
+				<tr><td><input type=checkbox id=Row7></td><td>Row 8</td><td>Noooo</td></tr>
+				<tr><td><input type=checkbox id=Row8></td><td>Row 9</td><td>Yeeeh</td></tr>
+				<tr><td><input type=checkbox id=Row9></td><td>Row 10</td><td>Noooo</td></tr>
+    			</tbody>
+        </table>
+        <table id=tblButtons>
+    			
+    			<tr>
+    				
+        		<td style="width: 45%">
+
+        		<input type=button class=Regular id=btnDeleteReports value='Delete'">
+        		</td>
+        	  
+    				
+    				
+        		
+        		
+      		</tr>
+      
+    			
+    		
+        </table>
+    	 
+        		</td>
+    		      		</tr>
+        </table>
+ 
+
+</body>
+</html>
+

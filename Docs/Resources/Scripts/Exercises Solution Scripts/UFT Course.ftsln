@@ -1,0 +1,95 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.1.3.0
+Project("") = "Functions", "Functions\Test.tsp", "25AE7D34-1E55-48DE-9187-3C38F71429C7"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = F:\Google Drive\Work\UFT\Courses\UFT Course\Resources\Scripts\Exercises Solution Scripts\Functions\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+	EndProjectSection
+EndProject
+Project("") = "Creating Aa Basic Test", "Creating Aa Basic Test\Test.tsp", "ACCBF2B8-E709-4741-837A-062825109717"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = F:\Google Drive\Work\UFT\Courses\UFT Course\Resources\Scripts\Exercises Solution Scripts\Creating Aa Basic Test\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+		BaselineId = 
+	EndProjectSection
+EndProject
+Project("") = "Check Points", "Check Points\Test.tsp", "B6D49BBD-9170-479F-9DB7-64C717D91B99"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = F:\Google Drive\Work\UFT\Courses\UFT Course\Resources\Scripts\Exercises Solution Scripts\Check Points\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+		BaselineId = 
+	EndProjectSection
+EndProject
+Project("") = "Synchronization", "Synchronization\Test.tsp", "C61F7CD9-34E7-4226-A45C-8FDCDF9A185F"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = F:\Google Drive\Work\UFT\Courses\UFT Course\Resources\Scripts\Exercises Solution Scripts\Synchronization\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+		BaselineId = 
+	EndProjectSection
+EndProject
+Project("") = "Analog Recording", "Analog Recording\Test.tsp", "96F186DE-944E-427C-B76F-877270CC65C9"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = F:\Google Drive\Work\UFT\Courses\UFT Course\Resources\Scripts\Exercises Solution Scripts\Analog Recording\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+		BaselineId = 
+	EndProjectSection
+EndProject
+Project("") = "DB Chrck Point", "DB Chrck Point\Test.tsp", "74A3254C-366C-4EE6-9F4B-9D927C42F494"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = F:\Google Drive\Work\UFT\Courses\UFT Course\Resources\Scripts\Exercises Solution Scripts\DB Chrck Point\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+		BaselineId = 
+	EndProjectSection
+EndProject
+Project("") = "VBS", "VBS\Test.tsp", "046AA1C6-FA48-4C11-A82E-05305976367B"
+	ProjectSection(ProjectMetadata) = HP.UFT.ProjectSystem.Dynamic.ProjectMetadata
+		PathInformation = F:\Google Drive\Work\UFT\Courses\UFT Course\Resources\Scripts\Exercises Solution Scripts\VBS\Test.tsp
+		Keyword = QTP
+		OpenAsReadOnly = False
+		BaselineId = 
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		25AE7D34-1E55-48DE-9187-3C38F71429C7.Debug|Any CPU.Build.0 = Debug|Any CPU
+		25AE7D34-1E55-48DE-9187-3C38F71429C7.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		25AE7D34-1E55-48DE-9187-3C38F71429C7.Release|Any CPU.Build.0 = Release|Any CPU
+		25AE7D34-1E55-48DE-9187-3C38F71429C7.Release|Any CPU.ActiveCfg = Release|Any CPU
+		ACCBF2B8-E709-4741-837A-062825109717.Debug|Any CPU.Build.0 = Debug|Any CPU
+		ACCBF2B8-E709-4741-837A-062825109717.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		ACCBF2B8-E709-4741-837A-062825109717.Release|Any CPU.Build.0 = Release|Any CPU
+		ACCBF2B8-E709-4741-837A-062825109717.Release|Any CPU.ActiveCfg = Release|Any CPU
+		B6D49BBD-9170-479F-9DB7-64C717D91B99.Debug|Any CPU.Build.0 = Debug|Any CPU
+		B6D49BBD-9170-479F-9DB7-64C717D91B99.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		B6D49BBD-9170-479F-9DB7-64C717D91B99.Release|Any CPU.Build.0 = Release|Any CPU
+		B6D49BBD-9170-479F-9DB7-64C717D91B99.Release|Any CPU.ActiveCfg = Release|Any CPU
+		C61F7CD9-34E7-4226-A45C-8FDCDF9A185F.Debug|Any CPU.Build.0 = Debug|Any CPU
+		C61F7CD9-34E7-4226-A45C-8FDCDF9A185F.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		C61F7CD9-34E7-4226-A45C-8FDCDF9A185F.Release|Any CPU.Build.0 = Release|Any CPU
+		C61F7CD9-34E7-4226-A45C-8FDCDF9A185F.Release|Any CPU.ActiveCfg = Release|Any CPU
+		96F186DE-944E-427C-B76F-877270CC65C9.Debug|Any CPU.Build.0 = Debug|Any CPU
+		96F186DE-944E-427C-B76F-877270CC65C9.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		96F186DE-944E-427C-B76F-877270CC65C9.Release|Any CPU.Build.0 = Release|Any CPU
+		96F186DE-944E-427C-B76F-877270CC65C9.Release|Any CPU.ActiveCfg = Release|Any CPU
+		74A3254C-366C-4EE6-9F4B-9D927C42F494.Debug|Any CPU.Build.0 = Debug|Any CPU
+		74A3254C-366C-4EE6-9F4B-9D927C42F494.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		74A3254C-366C-4EE6-9F4B-9D927C42F494.Release|Any CPU.Build.0 = Release|Any CPU
+		74A3254C-366C-4EE6-9F4B-9D927C42F494.Release|Any CPU.ActiveCfg = Release|Any CPU
+		046AA1C6-FA48-4C11-A82E-05305976367B.Debug|Any CPU.Build.0 = Debug|Any CPU
+		046AA1C6-FA48-4C11-A82E-05305976367B.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		046AA1C6-FA48-4C11-A82E-05305976367B.Release|Any CPU.Build.0 = Release|Any CPU
+		046AA1C6-FA48-4C11-A82E-05305976367B.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,2803 @@
+<html>
+<head>
+<title>QTP Web Demo</title>
+<style type="text/css" id=MyStyles>
+						.FamilyMobile{
+						Display: none;
+						} 
+						.FamilyBigPond{
+						Display: none;
+						} 
+						.groupHeader{
+						FONT-WEIGHT: bold; 
+						FONT-SIZE: 12px;
+						COLOR: #5D6773 ; 
+						BORDER-BOTTOM: #EEEEEE 1px solid; 
+						HEIGHT: 20px; 
+						BACKGROUND-COLOR: white;
+						text-align: left;
+						padding-top: 3px
+						}
+			TABLE {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            }       
+        DIV {
+            border-width: 1px;
+            border-color: black;
+            border-style: solid;
+            }  
+            .Loading {
+            position: relative;
+            top: -600px;
+            left: 100px;
+            Display: none;
+            width: 250px;
+            height: 30px;
+            border: 1px #000000 solid;
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 30px; 
+            COLOR: #000000; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            BACKGROUND-COLOR: #607B8B;
+            filter:progid:DXImageTransform.Microsoft.MotionBlur(strength=13, direction=310);
+            filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=2);
+            filter:progid:DXImageTransform.Microsoft.Wheel(duration=3);
+            } 
+            .LoadingLeft {
+            position: relative;
+            top: -400px;
+            left: -450px;
+            Display: none;
+            width: 250px;
+            height: 30px;
+            border: 1px #000000 solid;
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 30px; 
+            COLOR: #000000; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            BACKGROUND-COLOR: #607B8B;
+            filter:progid:DXImageTransform.Microsoft.MotionBlur(strength=13, direction=310);
+            filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=2);
+            filter:progid:DXImageTransform.Microsoft.Wheel(duration=3);
+            }         
+            .Regular {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 100;
+            } 
+            .RegularRO {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            BACKGROUND-COLOR: #F5F5F5;
+            WIDTH: 130;
+            } 
+            .RegularWide {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 130;
+            } 
+            .RegularVeryWide {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 150;
+            }
+            .RegularNarrow {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 30;
+            } 
+	    			.ListRegularNarrow {
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            COLOR: #000000;
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 35;
+            }
+            .Flat   {
+            border: 1px solid;  
+            FONT-SIZE: 12px; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 100;
+            }
+            .FlatNoBorder   {
+            border: 0px #000000 solid;  
+            FONT-WEIGHT: normal; 
+            FONT-SIZE: 12px; 
+            FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+            WIDTH: 30;
+            }
+            .ListRegularLarge {
+            WIDTH: 140;
+            HEIGHT: 80;
+            border-width: 2px;
+            border-color: black;
+            border-style: solid;
+            }
+            .ShowParentRow {
+            border-width: 2px;
+            border-color: black;
+            border-style: solid;
+            }
+            .HeaderLabel
+						{
+            background-color: #BFEFFF;
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#F0F8FF, endColorstr=#BFEFFF);
+						}
+
+
+
+            
+ 
+    </style>
+
+<head>
+<body ID="B" NAME="B" style="margin-top: 10; background-color: white; font-weight: bold; FONT-FAMILY: Verdana" OnUnload="fEnd()">
+
+<script language="vbscript">
+Option Explicit
+	
+Dim fso, sAppPath, sIconsFolder, sXlsFileReferenceData, sTdiPath, sReferenceDataFolder, sReportsFolder
+Dim sDbInstance, sDbUser, sDbPwd
+Dim sQCServer, sQCDomain, sQCProject, sQCUser, sQCPassword, sQCFolder, bTdiMail, bTdiStarted
+Dim xlsApp, xlsApp1, xlsBook, xlsBook1, objDoc, sResultPath, sHelpFolder, sSddbFilesFolder
+
+Dim sValidationByFile, objFile, sFilterType, iOrderId
+sFilterType = "OrderId"
+
+Set xlsApp = CreateObject("Excel.Application")
+xlsApp.DisplayAlerts = FALSE
+
+Set xlsApp1 = CreateObject("Excel.Application")
+xlsApp1.DisplayAlerts = FALSE
+	
+Set objDoc = CreateObject("MSXML2.DOMDocument")
+objDoc.async = True
+'Set mCnDB = CreateObject("ADODB.connection")
+'Set objRS = CreateObject("ADODB.recordset")
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'Set objFile = objFSO.CreateTextFile(sResultPath, True)
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fInit
+' Description:  	Executed when opening the application:
+'									1. Loading all env from XLS
+'									2. Initializing path variables
+'									3. Cleaning "REFERENCE" sheet in the Excel.
+' Parameters:   	
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:			
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public Function fInit()
+	
+	' When opening application
+	sAppPath = "C:\Users\User\Google Drive\Work\UFT\Courses\UFT Course\Resources\QTP Web Demo\"
+	
+	sReportsFolder = sAppPath & "Reports\"
+	sReferenceDataFolder = sAppPath & "Data\"
+	sSddbFilesFolder = sReferenceDataFolder & "SDDB\"
+  sIconsFolder = sAppPath & "Icons\"
+	sXlsFileReferenceData = sAppPath & "Data\Reference Data.xls"
+
+	fViewAllReports()
+			
+	fInit = True
+	
+End Function
+
+Public Function fSetSddb()
+	
+	Dim xlsBook, i
+	
+	If Document.GetElementById("lstSddbVersion").SelectedIndex = 0 Then
+		fSetSddb = True
+		Exit Function
+	End If
+	
+	sValidationByFile = sSddbFilesFolder & Document.GetElementById("lstSddbVersion").Value
+	
+	' Remove filters from sheets
+	Set xlsBook = xlsApp.Workbooks.Open(sValidationByFile)
+			  
+	For i = 1 to xlsBook.Sheets.Count
+		'msgbox xlsBook.Sheets(i).AutoFilterMode
+		If xlsBook.Sheets(i).AutoFilterMode = True Then
+			xlsBook.Sheets(i).Select
+			xlsApp.Selection.AutoFilter
+		End If
+	Next
+	
+	xlsBook.Save		
+	xlsBook.Close
+	Set xlsBook = Nothing
+	
+End Function
+
+Public Function fLoadSddb()
+
+	Dim optEnv, i, fso, objFile, objFolder
+	
+	Set fso = CreateObject("scripting.filesystemobject")
+	Set objFolder = fso.GetFolder(sSddbFilesFolder)
+	For Each objFile in objFolder.Files
+			set optEnv = document.CreateElement("option")
+			optEnv.Value = objFile.Name
+			optEnv.Text = objFile.Name
+			Document.GetElementById("lstSddbVersion").add optEnv
+	Next
+	
+	Set fso = Nothing
+	
+End Function
+
+Public Function fLoadEnv()
+
+	Dim xlsBook, xlsSheet
+	Dim objFound, optEnv, i
+	
+	Set xlsBook = xlsApp.Workbooks.Open(sXlsFileReferenceData)
+	Set xlsSheet = xlsBook.Worksheets("ENVIRONMENTS")
+		  
+	For i = 2 to xlsSheet.UsedRange.Rows.Count
+		set optEnv = document.CreateElement("option")
+		optEnv.Value = xlsSheet.Cells(i, 1).Value
+		optEnv.Text = xlsSheet.Cells(i, 1).Value
+		Document.GetElementById("lstEnv").add optEnv
+	Next
+				
+	xlsBook.Close
+	
+	Set xlsBook = Nothing
+	Set xlsSheet = Nothing
+	
+End Function
+	
+' TDI functions
+'#################################################################################
+'#	FUNCTION NAME:	TDIRequested
+'# 	INPUT PARAMS:  	None
+'# 	OUT PARAMS:  	None
+'# 	RETURN CODE:    TRUE - Success
+'#			FAIL - Failure
+'################################################################################
+Public Function TDIRequested (ByRef rsEnv)
+   
+On Error Resume Next
+
+	If Len(Trim(Ucase(rsEnv.Fields("QC_SERVER")))) = 0 Or _ 
+	   Len(Trim(Ucase(rsEnv.Fields("QC_DOMAIN")))) = 0 Or _ 
+	   Len(Trim(Ucase(rsEnv.Fields("QC_PROJECT")))) = 0 Or _
+	   Len(Trim(Ucase(rsEnv.Fields("QC_USER")))) = 0 Then
+		TDIRequested = FALSE
+		Exit Function
+	End If
+
+	If Err.Number <> 0 Then
+		Err.Clear
+		TDIRequested = FALSE
+		Exit Function     
+	End If
+	
+On Error GoTo 0
+  
+	TDIRequested = TRUE
+End Function
+
+'#################################################################################
+'# 
+'#	FUNCTION NAME:	TDIRequestTCs
+'# 
+'# 	DESCRIPTION:  	The following sub reports to TDI a requested TC
+'#						
+'# 	INPUT PARAMS: 	ByVal iXlsRow, ByVal sActionName, ByVal bStatus 	
+'#
+'# 	OUT PARAMS:  	
+'#  
+'# 	RETURN CODE:	
+'#
+'################################################################################
+Public Sub TDIRequestTCs(ByVal sTestSetSec, ByVal sTestSet, ByVal iXlsRow, ByVal sActionName, ByVal bStatus, ByVal sActualResult)
+	Dim sIniName
+	Dim sStatus
+
+	sStatus = "FAILED"
+
+	If sTestSet = "" Then
+		sTestSet = "TEST_SET_1"
+	End If
+	
+	If bStatus = TRUE Then
+		sStatus = "PASSED"
+	End If
+	sIniName = sTdiPath & "TDIRequest.ini"
+	Call fWriteToIni (sIniName, sTestSetSec , "TEST_SET_NAME", sTestSet)
+	Call fWriteToIni (sIniName, sTestSetSec, "TEST_CASE_" & iXlsRow, _
+				"[NAME]" & iXlsRow & "_" & sActionName & _
+				"[STATUS]" & sStatus & _
+				"[ACTUAL_RESULT]" & sActualResult)
+
+End Sub
+
+'#################################################################################
+'# 
+'#	FUNCTION NAME:	TDIPost
+'# 
+'# 	DESCRIPTION:  	The following sub post TDI request
+'#						
+'# 	INPUT PARAMS:  	
+'#
+'# 	OUT PARAMS:  	
+'#  
+'# 	RETURN CODE:	
+'#
+'################################################################################
+Public Sub TDIPost()
+
+	Call fRunExe("""" & sTdiPath & "TDI_EXE.bat""" & " """ & _
+			 Left(sTdiPath, len(sTdiPath) - 1) & """ """ & _
+			 sTdiPath & "TDIRequest.ini""")
+		    
+End Sub
+
+'#################################################################################
+'# 
+'#	FUNCTION NAME:	hasTDI
+'# 
+'# 	DESCRIPTION:  	The following function returns TRUE/FALSE in case TDI 
+'#			was requested
+'#						
+'# 	INPUT PARAMS:  	
+'#
+'# 	OUT PARAMS:  	
+'#  
+'# 	RETURN CODE:	boolean
+'#
+'################################################################################
+Public Function hasTDI()
+	Dim sTDI
+
+On Error Resume Next
+	sTDI = Environment.Value("TDI")
+	If Err.Number <> 0 Then
+		Err.Clear
+		sTDI = "FALSE"	
+	End If
+On Error GoTo 0
+
+	hasTDI = sTDI
+End Function
+
+'#################################################################################
+
+
+'#################################################################################
+'# 
+'#	FUNCTION NAME:	TDIRequestQCLogin
+'# 
+'# 	DESCRIPTION:  	Report to TDI the QC infomation
+'#											
+'# 	INPUT PARAMS:  	
+'#
+'# 	OUT PARAMS:  	
+'#  
+'# 	RETURN CODE:	boolean
+'#
+'################################################################################  
+Public Sub TDIRequestQCLogin()
+	Dim sIniName
+	Dim objFSO
+
+	sIniName = sTdiPath & "TDIRequest.ini"
+
+	Set objFSO = CreateObject("Scripting.FileSystemObject")
+	If objFSO.FileExists( sIniName ) = TRUE Then 
+		Call objFSO.DeleteFile (sIniName)
+	End If
+	Set objFSO = Nothing
+	
+	Call fWriteToIni (sIniName, "CONFIG", "COMPLETION_NOTIFICATION", bTdiMail)
+	Call fWriteToIni (sIniName, "QUALITY_CENTER", "SERVER", sQCServer)
+	Call fWriteToIni (sIniName, "QUALITY_CENTER", "DOMAIN", sQCDomain)
+	Call fWriteToIni (sIniName, "QUALITY_CENTER", "PROJECT", sQCProject)
+	Call fWriteToIni (sIniName, "QUALITY_CENTER", "USER", sQCUser)
+	Call fWriteToIni (sIniName, "QUALITY_CENTER", "PASSWORD", sQCPassword)
+		
+End Sub
+
+'###########################################################################################################
+Public Function fWriteToIni(ByVal sIniPath,  ByVal sSection,  ByVal sParamName, ByVal sParamVal)
+	
+	Dim rc, oFS, arrTemp, oFSFile
+	Dim oFile , oStream , bParamFound
+   
+	Const ForReading = 1 
+   Const ForWriting = 2 
+   Const ForAppending = 8 
+   Const TristateUseDefault = -2 
+   Const TristateTrue = -1 
+   Const TristateFalse = 0 
+	ReDim arrLines(0)
+	Dim i
+	i = 0
+	
+   sSection = "[" & sSection & "]"
+   
+   bParamFound = False
+
+   Set oFS = CreateObject("Scripting.FileSystemObject") 
+	
+		If oFS.FileExists(sIniPath) = False Then 
+			Call oFS.CreateTextFile(sIniPath)
+			ReDim preserve arrLines(1)
+			arrLines(0) = sSection
+			arrLines(1) = sParamName & "=" & sParamVal
+		Else
+			Set oFile = oFS.GetFile(sIniPath) 
+   
+   Set oStream = oFile.OpenAsTextStream(ForReading, TristateUseDefault) 
+	' Find Section
+   Do 
+       ReDim Preserve arrLines(i) 
+		arrLines(i) = oStream.ReadLine
+		i = i + 1
+   Loop While Not oStream.AtEndOfStream and trim(arrLines(i - 1)) <> sSection
+	  
+		
+	  ' Find param (if not exist, create)
+	  If oStream.AtEndOfStream = True and arrLines(i - 1) = sSection Then
+		  ReDim Preserve arrLines(i) 
+      arrLines(i) = sParamName & "=" & sParamVal
+    ElseIf arrLines(i - 1) = sSection Then
+		Do
+			ReDim Preserve arrLines(i) 
+			arrLines(i) = oStream.ReadLine
+			arrTemp = split(arrLines(i), "=")
+			If arrTemp(0) = sParamName Then
+				arrLines(i) = arrTemp(0) & "=" & sParamVal
+				bParamFound = True
+			End If
+			i = i + 1
+		Loop While Not oStream.AtEndOfStream and Left(trim(arrLines(i - 1)), 1) <> "["
+
+		If bParamFound = False Then
+			ReDim Preserve arrLines(i) 
+			'arrLines(i) = arrLines(i - 1)
+			'arrLines(i - 1) = sParamName & "=" & sParamVal
+			arrLines(i) = sParamName & "=" & sParamVal
+			i = i + 1
+		End If
+      
+	  Else
+		ReDim Preserve arrLines(i) 
+		arrLines(i) = sSection
+		i = i + 1
+		ReDim Preserve arrLines(i) 
+		arrLines(i) = sParamName & "=" & sParamVal
+		i = i + 1
+	  End If
+	  
+   While Not oStream.AtEndOfStream 
+       ReDim Preserve arrLines(i) 
+		arrLines(i) = oStream.ReadLine
+		i = i + 1
+   Wend 
+
+   oStream.Close 
+
+		End If
+	
+  Set oFSFile = oFS.OpenTextFile(sIniPath, ForWriting, True) 
+	For i = 0 to ubound(arrLines)
+		oFSFile.WriteLine(arrLines(i)) 
+  Next
+  
+  oFSFile.Close 
+
+  Set oFSFile = Nothing 
+  Set oFS = Nothing 
+	
+	'fWriteToTextFile(sIniPath, byval sText)
+	
+  'Extern.Declare micInteger,"WritePrivateProfileStringA", "kernel32.dll","WritePrivateProfileStringA", micString, micString, micString, micString 
+	'rc = extern.WritePrivateProfileStringA(sSection,sParamName, sParamVal, sIniPath) 
+	'If rc Then
+		fWriteToIni = TRUE
+	'Else
+		'fWriteToIni = FALSE
+	'End If
+
+End Function
+' ---------------------------------------------------------------------------
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Constructor\Distructor functions
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fEnd
+' Description:  	Executed when closing the application:
+'									1. Releasing Excel and DB objects
+' Parameters:   	
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:			
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public Function fEnd()
+	
+	If not xlsApp Is Nothing Then
+		xlsApp.DisplayAlerts = TRUE
+		xlsApp.Quit
+		Set xlsApp = Nothing
+	End If
+	
+	If not xlsApp1 Is Nothing Then
+		xlsApp1.DisplayAlerts = TRUE
+		xlsApp1.Quit
+		Set xlsApp1 = Nothing
+	End If
+	
+	'TDI
+	If trim(sQCServer) <> "" Then
+		Call TDIPost()
+	End If
+	'If Ucase(hasTDI()) = "TRUE" Then
+	'	Call TDIPost()
+	'End If
+
+End Function
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' String and Array functions
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' File functions
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' XML functions
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	Sleep
+' Description:  	Halting execution for a specified time
+' Parameters:   	intMilliSecs - Time to wait in msec
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:			
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Sub Sleep(intMilliSecs)
+	
+	Dim sCmd
+	CONST HideWindow = 0
+	CONST WaitForCompletion = TRUE
+
+	' Because HTA doesn't use Windows Script Host, it uses IE Script Host we
+	' can't use WScript.Sleep
+	' Workaround: send one ping command to fake address with a wait for reply
+	' value set in milliseconds
+	sCmd = "cmd /c ping 1.1.1.1 -n 1 -w " & intMilliSecs
+	With CreateObject("WScript.Shell")
+		.Run sCmd, HideWindow, WaitForCompletion
+	End With
+
+End Sub
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' DB functions
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fORADisConnect
+' Description:  	Disconnect from Oracle
+' Parameters:   	
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:			
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public Function fORADisConnect(ByRef mCnDB)
+	
+	If mCnDB.State <> 0 Then
+		mCnDB.Close
+	End If
+	
+	'Set mCnDB = Nothing
+	
+	fORADisConnect = True
+	
+End Function
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fGetOneValueFromDb
+' Description:  	Execute DB query to get a single value
+' Parameters:   	sSQL - The query to execute
+'									sOutValue - The out value
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:					fORAConnect must be called before calling this function
+'									objRS (record set) is a public variable)
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public Function fGetOneValueFromDb(sDbInstance, sDbUser, sDbPwd, ByVal sSQL, ByRef sOutValue)
+	
+	Dim mCnDB, objRS
+	
+	sOutValue = ""
+	
+	Set objRS = CreateObject("ADODB.recordset")
+	
+	If fORAConnect(sDbInstance, sDbUser, sDbPwd, mCnDB) = False Then
+		fGetOneValueFromDb = False
+		Exit Function
+	End If
+	
+	If fExeQuery(mCnDB, sSQL, objRS) <> True Then
+		fGetOneValueFromDb = False
+		fORADisConnect mCnDB
+		Exit Function
+	End If
+	
+	If objRS.EOF = True and objRS.BOF = True Then
+		msgbox "No value returned from DB." & vbnewline & "SQL: " & sSQL, vbOKonly + vbInformation, "Get value from DB"
+		fGetOneValueFromDb = False
+		fORADisConnect mCnDB
+		Exit Function
+	End If
+	
+	sOutValue = objRS.Fields(0).Value
+	
+	fORADisConnect mCnDB
+	
+	fGetOneValueFromDb = True
+
+End Function
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fGetValuesFromDb
+' Description:  	Execute DB query to get a record set
+' Parameters:   	sSQL - The query to execute
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:					fORAConnect must be called before calling this function
+'									objRS (record set) is a public variable)
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public Function fGetValuesFromDb(ByVal sSQL)
+	
+	If fExeQuery(mCnDB, sSQL) <> True Then
+		fGetValuesFromDb = False
+		Exit Function
+	End If
+	
+	If objRS.EOF = True and objRS.BOF = True Then
+		fGetValuesFromDb = NO_REC_FOUND
+		Exit Function
+	End If
+	
+	fGetValuesFromDb = True
+	
+End Function
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' GUI events functions
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fLoadEnvDetails
+' Description:  	Loads env detailes from the Excel
+' Parameters:   	
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:					Executes when selecting "Env #" combo box
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public Function fLoadEnvDetails
+
+	Dim objFound, iRow, xlsBook, xlsSheet
+	
+	If lstEnv.Value = "Select Env" Then
+		fLoadEnvDetails = True
+		Exit Function
+	End If
+	
+	'Set xlsApp = CreateObject("Excel.Application")
+	'xlsApp.DisplayAlerts = FALSE
+	Set xlsBook = xlsApp.Workbooks.Open(sXlsFileReferenceData)
+  Set xlsSheet = xlsBook.Worksheets("ENVIRONMENTS")
+ 	
+ 	Set objFound = xlsSheet.Range("A1:A" & xlsSheet.UsedRange.Rows.Count).Find(lstEnv.Value, , , 1)
+	If objFound Is Nothing = False Then
+		iRow = objFound.Row
+	End If
+ 	
+ 	' DB
+ 	Set objFound = xlsSheet.Range("A1:AN1").Find("SF_DB_INSTANCE")
+	If objFound Is Nothing = False Then
+		sDbInstance = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("SF_DB_UID")
+	If objFound Is Nothing = False Then
+		sDbUser = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("SF_DB_PWD")
+	If objFound Is Nothing = False Then
+		sDbPwd = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	'TDI
+	Set objFound = xlsSheet.Range("A1:AN1").Find("QC_SERVER")
+	If objFound Is Nothing = False Then
+		sQCServer = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("QC_DOMAIN")
+	If objFound Is Nothing = False Then
+		sQCDomain = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("QC_PROJECT")
+	If objFound Is Nothing = False Then
+		sQCProject = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("QC_USER")
+	If objFound Is Nothing = False Then
+		sQCUser = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("QC_PASSWORD")
+	If objFound Is Nothing = False Then
+		sQCPassword = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("QC_FOLDER")
+	If objFound Is Nothing = False Then
+		sQCFolder = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find("MAIL_NOTIFICATION")
+	If objFound Is Nothing = False Then
+		bTdiMail = xlsSheet.Cells(iRow, objFound.Column).Value ' Field
+	End If
+	
+	'TDI
+	If trim(sQCServer) <> "" and bTdiStarted = False Then
+		bTdiStarted = True
+		Call TDIRequestQCLogin()
+	End If
+		
+	xlsBook.Close
+	'xlsApp.DisplayAlerts = TRUE
+	'xlsApp.Quit
+		
+	'Set xlsApp = Nothing
+	Set xlsBook = Nothing
+	Set xlsSheet = Nothing
+		
+	fLoadEnvDetails = True
+	
+End Function
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fOnFieldChange
+' Description:  	Updating value of XML object tag
+' Parameters:   	obj - The XML tag
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:					Executed after changing and exsiting tag field
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public function fOnFieldChange(obj)
+	objDoc.selectSingleNode(obj.MyXPath).Text = obj.Value
+	obj.Style.BackGroundColor = ""
+End Function
+
+Public function fOnFieldBlur(obj)
+	
+	Dim keynum
+	
+	obj.Style.BackGroundColor = ""
+	
+	
+	
+End Function
+Public Function fDisableObj(sObjName, bDisable)
+		
+	Document.GetElementById(sObjName).Disabled = bDisable
+	
+End Function
+
+Public Function fClean()
+	
+	document.GetElementById("btnViewReport").Disabled = True
+	
+	While Document.GetElementById("tblOrders").Rows.Length > 0
+		Document.GetElementById("tblOrders").DeleteRow 0
+	Wend
+	
+	document.GetElementById("tblOrdersHeader").Style.Display = "none"
+	document.GetElementById("tblOrdersList").Style.Display = "none"
+		
+End Function
+
+Public Function fGetOrders()
+	
+	Dim mCnDB, objRS, sSQL, i, objRow, objCell, objRadio
+	
+	document.GetElementById("tblOrdersHeader").Style.Display = "none"
+	document.GetElementById("tblOrdersList").Style.Display = "none"
+		
+	If lstEnv.SelectedIndex = 0 Then
+		MsgBox "Please select envirnoment", vbInformation, "QTP Web Demo - Fields Check"
+		fGetOrders = False
+		Exit Function
+	ElseIf lstSddbVersion.SelectedIndex = 0 Then
+		MsgBox "Please select SDDB Version", vbInformation, "QTP Web Demo - Fields Check"
+		fGetOrders = False
+		Exit Function
+	ElseIf Trim(txtUniqueId.Value) = "" Then
+		MsgBox "Please enter " & document.GetElementById("lstSearchBy").Value, vbInformation, "QTP Web Demo - Fields Check"
+		fGetOrders = False
+		Exit Function
+	ElseIf sFilterType <> "OrderId" And IsNumeric(Trim(txtUniqueId.Value)) = False Then
+		MsgBox "Please enter numeric value for ObjID", vbInformation, "QTP Web Demo - Fields Check"
+		fGetOrders = False
+		Exit Function
+	End If
+	
+	document.GetElementById("B").Style.Cursor = "wait"
+	sleep 100
+	
+	While Document.GetElementById("tblOrders").Rows.Length > 0
+		Document.GetElementById("tblOrders").DeleteRow 0
+	Wend
+	
+	document.GetElementById("tblOrdersHeader").Style.Display = "block"
+	document.GetElementById("tblOrdersList").Style.Display = "block"
+			
+	For i = 1 to 2
+		' Build list
+		set objRow = document.GetElementById("tblOrders").InsertRow
+				
+		set objCell = document.createElement("TD")
+	 	objRow.appendChild(objCell)
+			
+		If i = 1 Then
+			set objRadio = document.createElement("<INPUT TYPE='RADIO' NAME='chkOrders' VALUE='" & document.GetElementById("txtUniqueId").Value & "_80382_01_1'>")
+		Else
+			set objRadio = document.createElement("<INPUT TYPE='RADIO' NAME='chkOrders' VALUE='mayado_80382_01_2'>")
+		End If
+		objRadio.Id = "chkOrder_" & i
+		objCell.appendChild(objRadio)
+		If i = 1 Then
+			objRadio.Checked = True
+			iOrderId = document.GetElementById("txtUniqueId").Value & "_80382_01_1"
+		End If
+		
+		set objCell = document.createElement("TD")
+		objCell.Id = "tdOrder_" & i
+		If i = 1 Then
+			objCell.InnerText = document.GetElementById("txtUniqueId").Value & "_80382_01_1"
+		Else
+			objCell.InnerText = document.GetElementById("txtUniqueId").Value & "_80382_01_2"
+		End if
+ 		objRow.appendChild(objCell)
+ 		
+ 		set objCell = document.createElement("TD")
+ 		If i = 1 Then
+			objCell.InnerText = "Connect"
+		Else
+			objCell.InnerText = "ReplaceSIM"
+		End if
+ 		objRow.appendChild(objCell)
+ 		
+ 		set objCell = document.createElement("TD")
+ 		If i = 1 Then
+			objCell.InnerText = "Complete"
+		Else
+			objCell.InnerText = "PoNR"
+		End if
+		objRow.appendChild(objCell)
+ 		
+ 		set objCell = document.createElement("TD")
+ 		If i = 1 Then
+			objCell.InnerText = "09/02/2009 9:20:58 AM"
+		Else
+			objCell.InnerText = "09/02/2009 9:39:10 AM"
+		End if
+		objRow.appendChild(objCell)
+ 	Next
+	
+	document.GetElementById("B").Style.Cursor = ""
+		
+End Function
+
+Public Function fSelectAll(ByRef objCheckBox, ByVal sTable, ByVal sCheckBox)
+	
+	Dim i
+	
+	For i = 1 to Document.GetElementById(sTable).Rows.Length
+		Document.GetElementById(sCheckBox & "_" & i).Checked = objCheckBox.Checked
+	Next
+
+End Function
+
+Public Function fExecute()
+	
+	Dim sDate, objFSO, objRS, iLen, mCnDB, sSQL, iNumOfInstances, sSheet, sByValue, objNodeList, objNodeList1, sQcSetName, iTimes, iRemaining
+	Dim j, i, k, iCounter, sCfsName, iImages, r
+	ReDim arrInstanceName(0)
+	ReDim arrOssId(0)
+	ReDim arrOssJobBody(0)
+	ReDim arrRemaining(0)
+	Dim arrActionCodesFoundInXml()
+	Dim arrRfsName()
+	Dim arrActionCode()
+	Dim arrSubOperation()
+	Dim arrTemp()
+	Dim sByColumn, sColumn, rc, sCfsToCheck, l, bImg
+	Dim m, n, sFound, arrFound, sSubOperation, bSubOperationFound
+	ReDim arrImages(0)
+	
+	iCounter = 0
+	iImages = 0
+	iTimes = 0
+		
+	' Get list of cfs to check
+	For i = 1 to Document.GetElementById("tblCfs").Rows.Length
+		'Document.GetElementById("img" & Document.GetElementById("chkCfs_" & i).Name).Style.Display = "none"
+		Document.GetElementById("img" & i).Style.Display = "none"
+		If Document.GetElementById("chkCfs_" & i).Checked = True Then
+			sCfsToCheck = sCfsToCheck & ",'" & Document.GetElementById("chkCfs_" & i).Name & "'"
+			Redim Preserve arrImages(iImages)
+			arrImages(iImages) = "img" & i
+			iImages = iImages + 1
+		End If
+	Next
+	
+	sCfsToCheck = Mid(sCfsToCheck, 2)
+
+	If sCfsToCheck = "" Then
+		MsgBox "Please check at least one CFS.", vbOKOnly + vbInformation, "QTP Web Demo - Fields Check"
+		Exit Function
+	End If
+	
+	document.GetElementById("B").Style.Cursor = "wait"
+	
+	document.GetElementById("btnGetOrders").Disabled = True
+	document.GetElementById("btnViewReport").Disabled = True
+	document.GetElementById("btnGetCfsList").Disabled = True
+	document.GetElementById("txtUniqueId").Disabled = True
+	document.GetElementById("lstSearchBy").Disabled = True
+	document.GetElementById("lstEnv").Disabled = True
+	document.GetElementById("lstSddbVersion").Disabled = True
+	document.GetElementById("btnValidateXml").Disabled = True
+	
+	sleep 100
+	
+	Set xlsBook = xlsApp.Workbooks.Open(sValidationByFile)
+	Set xlsBook1 = xlsApp1.Workbooks.Open(sValidationByFile)
+	
+	sDate = Now
+	sDate = Replace(sDate, " ", "_")
+	sDate = Replace(sDate, "/", "_")
+	sDate = Replace(sDate, ":", "_")
+	sResultPath = sReportsFolder & "XML Validation Report - Unique ID " & iOrderId & " Date " & sDate & ".html"
+	
+	Set objFSO = CreateObject("Scripting.FileSystemObject")
+	Set objFile = objFSO.CreateTextFile(sResultPath, True)
+	objFile.WriteLine("<HTML>")
+	objFile.WriteLine("<TITLE>JOB Validation for Order ID: " & iOrderId & "</TITLE>")
+	objFile.WriteLine("<BODY>")
+	objFile.WriteLine "<U><H3>JOB Validation for Order ID: " & iOrderId & "</H3></U>"
+	
+	Set objRS = CreateObject("ADODB.recordset")
+	objRS.CursorType = 3 
+	objRS.CursorLocation = 3
+	
+	fORAConnect sDbInstance, sDbUser, sDbPwd, mCnDB
+
+	iLen = 1
+	Do
+		iRemaining = False
+		iTimes = iTimes + 1
+		sSQL = "select part.part_number, job.OSS_ID, dbms_lob.substr(job.OSS_JOB_BODY, 4000," & iLen & ") "  & _
+	  			 "from table_site_part cfs, table_oss_job job,  table_order_line orde, "  & _
+	  			 "table_order_action act, table_contract con, table_oss_job_list jlist, TABLE_MOD_LEVEL MOD, TABLE_PART_NUM part " & _
+         	 "where act.order_action2contract=con.objid "  & _
+         	 "and orde.order_line2order_action=act.objid " & _
+           "and cfs.site_part2order_line=orde.objid " & _
+           "and jlist.OSS_JOB_LIST2ORD_LINE=orde.objid " & _
+           "and job.OSS_JOB2JOB_LIST=jlist.objid " & _
+           "AND orde.order_line2mod_level=MOD.objid " & _
+           "AND MOD.PART_INFO2PART_NUM=part.objid " & _
+           "and UPPER(con.oss_cust_order_no) = UPPER('" & iOrderId & "') " & _
+           "and cfs.instance_name IN(" & sCfsToCheck & ") " & _
+           "order by cfs.instance_name ASC"
+					
+		fExeQuery mCnDB, sSQL, objRS
+		
+    ReDim Preserve arrInstanceName(objRS.RecordCount - 1)
+		ReDim Preserve arrOssId(objRS.RecordCount - 1)
+		ReDim Preserve arrOssJobBody(objRS.RecordCount - 1)
+		ReDim Preserve arrRemaining(objRS.RecordCount - 1)
+		
+		objRS.MoveFirst
+		For i = 1 to objRS.RecordCount
+			arrInstanceName(i - 1) = objRS.Fields(0).Value ' CFS
+      arrOssId(i - 1) = objRS.Fields(1).Value 
+      arrOssJobBody(i - 1) = arrOssJobBody(i - 1) & objRS.Fields(2).Value
+			If objRS.Fields(2).Value = "" or IsNull(objRS.Fields(2).Value) Then
+				arrRemaining(i - 1) = "DONE"
+			ElseIf Cint(len(Trim(objRS.Fields(2).Value))) < 4000 Then
+				arrRemaining(i - 1) = "DONE"
+			ElseIf Cint(len(Trim(objRS.Fields(2).Value))) = 4000 Then
+				arrRemaining(i - 1) = "IN PROGRESS"
+			End If
+			objRS.MoveNext
+		Next
+		iLen = (4000 * iTimes) + 1
+    objRS.Close
+    
+    For r = 0 to Ubound(arrRemaining)
+    	If arrRemaining(r) <> "DONE" Then
+    		iRemaining = True
+    	End If
+  	Next
+	Loop While iRemaining = True
+	
+	For i = 0 to Ubound(arrOssJobBody)
+  	Erase arrActionCodesFoundInXml
+  	bSubOperationFound = False
+  	bImg = True
+  	
+  	' Edit to make legal XML
+    arrOssJobBody(i) = Replace(arrOssJobBody(i), fRegExp("<jobType>.*</jobType>", arrOssJobBody(i), iNumOfInstances), "")
+		arrOssJobBody(i) = Replace(arrOssJobBody(i), fRegExp("<jobParams><param><name>priority</name><value>.*</value></param></jobParams>", arrOssJobBody(i), iNumOfInstances), "")
+		
+		objDoc.LoadXML arrOssJobBody(i)
+		Set objNodeList = objDoc.selectNodes("//item")
+		Set objNodeList1 = objDoc.selectNodes("//orderableItem")
+			
+		objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid'>")
+		objFile.WriteLine("<TR style='background-color: #607B8B'>")
+		objFile.WriteLine("<TD class=HeaderLabel>")
+		objFile.WriteLine("<FONT color=white>CFS Name:<FONT>")
+		'objFile.WriteLine("CFS Name:")
+		objFile.WriteLine("</TD>")
+		objFile.WriteLine("<TD class=HeaderLabel>")
+		objFile.WriteLine("<FONT color=white>" & arrInstanceName(i) & "</FONT>")
+		'objFile.WriteLine(arrInstanceName(i))
+		objFile.WriteLine("</TD>")
+		objFile.WriteLine("</TR>")
+    objFile.WriteLine("</TABLE>")
+		objFile.WriteLine("<BR>")
+	
+    iCounter = 0
+    ' Go to Excel
+		' Get "Rfs Name" by "Cfs Name" in sheet "PR25 CFS-RFS Map"
+		' can be in 25 more then 1 rfs to cfs
+		sSheet = "PR25 CFS-RFS Map"
+		sByColumn = "Cfs Name"
+		sCfsName = arrInstanceName(i)
+		sColumn = "Rfs Name"
+		
+		If objDoc.Xml = "" Then
+			objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid'>")
+			objFile.WriteLine("<TR style='background-color: #FF4040'>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>XML ERROR:<FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>XML template in DB is not legal for CFS """ & sCfsName & """</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("</TR>")
+			objFile.WriteLine("</TABLE>")
+      objFile.WriteLine("<BR>")
+      'Document.GetElementById("img" & sCfsName).Style.Display = "block"
+      Document.GetElementById(arrImages(i)).Style.Display = "block"
+      'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "cross.ico"
+      document.GetElementById(arrImages(i)).Src = sIconsFolder & "cross.ico"
+    ElseIf objNodeList.length	<> objNodeList1.length Then	
+			objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid'>")
+			objFile.WriteLine("<TR style='background-color: #FF4040'>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>XML ERROR:<FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>XML template in DB is not legal for CFS """ & sCfsName & ":"" <BR> ""item"" node and ""orderableItem"" node count is not equel</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("</TR>")
+			objFile.WriteLine("</TABLE>")
+      objFile.WriteLine("<BR>")
+      'Document.GetElementById("img" & sCfsName).Style.Display = "block"
+      Document.GetElementById(arrImages(i)).Style.Display = "block"
+      'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "cross.ico"	
+      document.GetElementById(arrImages(i)).Src = sIconsFolder & "cross.ico"			
+		ElseIf fGetExcelValue(sValidationByFile, sSheet, sByColumn, sCfsName, sColumn, arrRfsName, arrTemp) = False Then
+      objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid; border-bottom: 0px'>")
+			objFile.WriteLine("<TR style='background-color: #FF4040'>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>RFS Name:<FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>RFS not found in sheet """ & sSheet & """ for CFS """ & sCfsName & """</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("</TR>")
+			objFile.WriteLine("<TR style='background-color: #FF4040'>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>Activation Code:</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>" & arrOssId(i) & "</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("</TR>")
+			objFile.WriteLine("</TABLE>")
+      objFile.WriteLine("<BR>")
+      'Document.GetElementById("img" & sCfsName).Style.Display = "block"
+      Document.GetElementById(arrImages(i)).Style.Display = "block"
+      'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "cross.ico"						
+      document.GetElementById(arrImages(i)).Src = sIconsFolder & "cross.ico"						
+		Else
+			For k = 0 to Ubound(arrRfsName)
+				Redim Preserve arrActionCodesFoundInXml(k)
+			
+				' Get "Action Code" by "Rfs Name" and "Sub-Operation" (By "orderableItem" from XML) in sheet "PR31 RFS Codes"
+				' here to take rfs name and go to xml with each sup operation
+				sSheet = "PR31 RFS Codes"
+				sByColumn = "RFS Name"
+				sByValue = arrRfsName(k)
+				sColumn = "Action Code;Sub-Operation"
+	
+			If fGetExcelValue(sValidationByFile, sSheet, sByColumn, sByValue, sColumn, arrActionCode, arrSubOperation) = False Then
+				objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid; border-bottom: 0px'>")
+				objFile.WriteLine("<TR style='background-color: #FF4040'>")
+				objFile.WriteLine("<TD>")
+				objFile.WriteLine("<FONT color=white>RFS Name:<FONT>")
+				objFile.WriteLine("</TD>")
+				objFile.WriteLine("<TD>")
+				objFile.WriteLine("<FONT color=white>Action Code not found in sheet """ & sSheet & """ for RFS """ & arrRfsName(k) & """</FONT>")
+				objFile.WriteLine("</TD>")
+				objFile.WriteLine("</TR>")
+				objFile.WriteLine("<TR style='background-color: #FF4040'>")
+				objFile.WriteLine("<TD>")
+				objFile.WriteLine("<FONT color=white>Activation Code:</FONT>")
+				objFile.WriteLine("</TD>")
+				objFile.WriteLine("<TD>")
+				objFile.WriteLine("<FONT color=white>" & arrOssId(i) & "</FONT>")
+				objFile.WriteLine("</TD>")
+				objFile.WriteLine("</TR>")
+				objFile.WriteLine("</TABLE>")
+				objFile.WriteLine("<BR>")
+				'Document.GetElementById("img" & sCfsName).Style.Display = "block"
+				Document.GetElementById(arrImages(i)).Style.Display = "block"
+				'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "cross.ico"				
+				document.GetElementById(arrImages(i)).Src = sIconsFolder & "cross.ico"								
+			Else
+				' Get orderableItem from XML
+				For j = 0 to Ubound(arrSubOperation) '''' Give notification if no found in XML
+					Set objNodeList = objDoc.selectNodes("//orderableItem[.='" & arrSubOperation(j) & "']")
+					
+					If objNodeList.Length > 0 Then
+						bSubOperationFound = True
+						If instr(arrActionCode(j), "_") > 0 Then
+							arrActionCodesFoundInXml(k) = arrActionCodesFoundInXml(k) & " " & Left(arrActionCode(j), instr(arrActionCode(j), "_") - 1) & "=Y-" & arrSubOperation(j)
+						Else
+							arrActionCodesFoundInXml(k) = arrActionCodesFoundInXml(k) & " " & arrActionCode(j) & "=Y-" & arrSubOperation(j)
+						End If
+						' Validate XML:
+						' Get all "Attribute Name in UIDD" by "Rfs Name" and "CFSSpecName" and sValue column in sheet "PR24 RFS to attributes Map"
+						sSheet = "PR24 RFS to attributes Map"
+						sByColumn = "RFS Name;CFSSpecName;Direction"
+						sByValue = arrRfsName(k) & ";" & sCfsName & ";Request"
+            objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid; border-bottom: 0px'>")
+						objFile.WriteLine("<TR style='background-color: #607B8B'>")
+						objFile.WriteLine("<TD>")
+						objFile.WriteLine("<FONT color=white>RFS Name:<FONT>")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD>")
+						objFile.WriteLine("<FONT color=white>" & arrRfsName(k) & "</FONT>")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("</TR>")
+						objFile.WriteLine("<TR style='background-color: #607B8B'>")
+						objFile.WriteLine("<TD>")
+						objFile.WriteLine("<FONT color=white>Activation Code:</FONT>")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD>")
+						objFile.WriteLine("<FONT color=white>" & arrSubOperation(j) & "</FONT>")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("</TR>")
+						objFile.WriteLine("</TABLE>")
+                        
+						objFile.WriteLine("<TABLE width=100% style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid'>")
+						objFile.WriteLine("<TR style='background-color: C0C0C0'>")
+						objFile.WriteLine("<TD width=15%>")
+						objFile.WriteLine("Attribute Name")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=5%>")
+						objFile.WriteLine("Required")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=5%>")
+						objFile.WriteLine("Exist")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=17%>")
+						objFile.WriteLine("Allowed Values\Derivation Rules")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=8%>")
+						objFile.WriteLine("Actual Value")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=5%>")
+						objFile.WriteLine("Exp. Size")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=5%>")
+						objFile.WriteLine("Act. Size")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=8%>")
+						objFile.WriteLine("Exp. Data Type")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=6%>")
+						objFile.WriteLine("Exp. Prefix")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=6%>")
+						objFile.WriteLine("Exp. Format")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=4%>")
+						objFile.WriteLine("Status")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("<TD width=16%>")
+						objFile.WriteLine("Status Reason")
+						objFile.WriteLine("</TD>")
+						objFile.WriteLine("</TR>")
+						
+						Document.GetElementById(arrImages(i)).Style.Display = "block"
+						If fVerifyXml(sValidationByFile, sSheet, sByColumn, sByValue, arrActionCode(j), arrSubOperation(j), sCfsName) = False Then
+							'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "cross.ico"						
+							document.GetElementById(arrImages(i)).Src = sIconsFolder & "cross.ico"	
+							bImg = False			
+						ElseIf bImg = True Then
+							'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "V.ico"	
+							document.GetElementById(arrImages(i)).Src = sIconsFolder & "V.ico"	
+						End If
+					
+						objFile.WriteLine("</TABLE>")
+						objFile.WriteLine("<BR>")
+					Else
+						If instr(arrActionCode(j), "_") > 0 Then
+							arrActionCodesFoundInXml(k) = arrActionCodesFoundInXml(k) & " " & Left(arrActionCode(j), instr(arrActionCode(j), "_") - 1) & "=N-" & arrSubOperation(j)
+						Else
+							arrActionCodesFoundInXml(k) = arrActionCodesFoundInXml(k) & " " & arrActionCode(j) & "=N-" & arrSubOperation(j)
+						End If
+						
+					End If
+				Next
+			End If
+			arrActionCodesFoundInXml(k) = arrActionCodesFoundInXml(k) & " "
+		Next
+		For l = 0 to Ubound(arrActionCodesFoundInXml)
+			sFound = fRegExp(" [^ ]*=Y-[^ ]* ", arrActionCodesFoundInXml(l), iNumOfInstances)
+			If iNumOfInstances > 0 Then
+				sFound = Replace(sFound, "Y", "N")
+				arrFound = Split(sFound, ",")
+				For m = 0 to Ubound(arrFound)
+					For n = 0 to Ubound(arrActionCodesFoundInXml)
+						arrFound(m) = Replace(arrFound(m), fRegExp("-.*", arrFound(m), iNumOfInstances), "")
+						If InStr(arrActionCodesFoundInXml(n), arrFound(m)) > 0 And cint(l) <> cint(n) Then
+							sSubOperation = fRegExp(Trim(arrFound(m)) & "-*[^ ]*", arrActionCodesFoundInXml(n), iNumOfInstances)
+							sSubOperation = Replace(sSubOperation, Trim(arrFound(m)) & "-", "")
+							objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid'>")
+							objFile.WriteLine("<TR style='background-color: #FF4040'>")
+							objFile.WriteLine("<TD>")
+							objFile.WriteLine("<FONT color=white>ADDITIONAL ERROR:<FONT>")
+							objFile.WriteLine("</TD>")
+							objFile.WriteLine("<TD>")
+							objFile.WriteLine("<FONT color=white>Missing Activation Code """ & sSubOperation & """ in Job</FONT>")
+							objFile.WriteLine("</TD>")
+							objFile.WriteLine("</TR>")
+							objFile.WriteLine("</TABLE>")
+				      objFile.WriteLine("<BR>")
+				      'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "cross.ico"	
+				      document.GetElementById(arrImages(i)).Src = sIconsFolder & "cross.ico"	
+						End If
+					Next
+				Next
+			End If
+		Next
+	End If
+	If bSubOperationFound = False Then
+			objFile.WriteLine("<TABLE style='FONT-FAMILY: Verdana; font-size: 12px; border: 1px black solid; border-bottom: 0px'>")
+			objFile.WriteLine("<TR style='background-color: #FF4040'>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>RFS Name:<FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>No Sub Operations from """ & sSheet & """ found in Job</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("</TR>")
+			objFile.WriteLine("<TR style='background-color: #FF4040'>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>Activation Code:</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine("<FONT color=white>" & arrOssId(i) & "</FONT>")
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("</TR>")
+			objFile.WriteLine("</TABLE>")
+			objFile.WriteLine("<BR>")
+			'Document.GetElementById("img" & sCfsName).Style.Display = "block"
+			Document.GetElementById(arrImages(i)).Style.Display = "block"
+			'document.GetElementById("img" & sCfsName).Src = sIconsFolder & "cross.ico"			
+			document.GetElementById(arrImages(i)).Src = sIconsFolder & "cross.ico"	
+		End If
+Next
+
+objFile.WriteLine("</BODY>")
+objFile.WriteLine("</HTML>")
+objFile.Close
+
+xlsBook.Close
+Set xlsBook = Nothing
+
+xlsApp1.DisplayAlerts = TRUE
+xlsApp1.Quit
+		
+Set xlsBook1 = Nothing
+
+document.GetElementById("B").Style.Cursor = ""
+
+fAddToReportsList()
+
+document.GetElementById("btnGetOrders").Disabled = False
+document.GetElementById("btnViewReport").Disabled = False
+document.GetElementById("btnGetCfsList").Disabled = False
+document.GetElementById("txtUniqueId").Disabled = False
+document.GetElementById("lstSearchBy").Disabled = False
+document.GetElementById("lstEnv").Disabled = False
+document.GetElementById("lstSddbVersion").Disabled = False
+document.GetElementById("btnValidateXml").Disabled = False
+
+End Function
+
+Public Function fViewReport()
+	
+	window.open sResultPath, "", "scrollbars=yes,resizable=yes"
+
+End Function
+
+Public Function fCheckFormat(ByVal sValue, ByVal sExpFormat)
+
+	Select Case Ucase(sExpFormat)
+		Case "YYYY_MM_DD"
+			fRegExp "^[0-9][0-9][0-9][0-9]_[0-9][0-9]_[0-9][0-9]$", sValue, iNumOfInstances
+			If iNumOfInstances <> 1 Then
+				fCheckFormat = False
+			Else
+				fCheckFormat = True
+			End If
+		Case "DD/MM/YYYY HH:MM:SS"
+			fRegExp "^[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]$", sValue, iNumOfInstances
+			If iNumOfInstances <> 1 Then
+				fCheckFormat = False
+			Else
+				fCheckFormat = True
+			End If
+		Case "DD/MM/YYYY"
+			fRegExp "^[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]$", sValue, iNumOfInstances
+			If iNumOfInstances <> 1 Then
+				fCheckFormat = False
+			Else
+				fCheckFormat = True
+			End If
+		Case Else
+			'MsgBox "Format " & sExpFormat & " not supported by QTP Web Demo. Please contact Maya D."
+			fCheckFormat = False
+	End Select
+
+End Function
+
+Public Function fVerifyXml(ByVal sFile, ByVal sSheet, ByVal sByColumn, ByVal sByValue, ByVal sActionCodeColumn, ByVal sItem, ByVal sCfsName)
+
+	Dim xlsSheet, objFound, iByColumn, iByColumn1, iRow, iColumn, arrByColumn, arrByValue, iFirstRow, iCurrentRow
+	Dim bFound, iAttributeNameColumn, iAttributeNameInDbColumn, sParamValue, objNodeList, iAttributeLengthColumn, sAttributeLength
+	Dim i, bFoundOK, bLengthOK, bValueOK, bStatus, iLen, bIsAllowableValues, sAllowableValues, bDuplicateOK
+	Dim arrColumns, arrValues, arrAttrFound(), arrAttrInXml()
+	Dim arrAllowableValues(), arrDataTypes(), arrAllowableValues1, iNumOfAttrFound, iNumOfAttrInXml, objNodeList1, j, sMsg
+	Dim iActionColumn, sError, bIsRequired, sAttributeName, sAttributeNameInDb, sColumn, iCounter, TdiStatus
+	Dim arrTemp()
+	Dim sTemp, iStart, iByColumn2, bDataTypeOK, sDataType, sAttributeValue, bDerivationValueOK, sQcSetName, sAttributePrefix, sAttributeFormat
+	Dim bFormatOK, bPrefixOK
+			
+	sQcSetName = sCfsName & "_" & Now()
+	sQcSetName = Replace(sQcSetName, ":", "_")
+	sQcSetName = Replace(sQcSetName, "/", "_")
+	sQcSetName = Replace(sQcSetName, " ", "_")
+				
+	fVerifyXml = True
+	
+	iCounter = 0
+	iNumOfAttrFound = 0
+
+  Set xlsSheet = xlsBook1.Worksheets(sSheet)
+	  
+	arrColumns = Split(sByColumn, ";")
+	arrValues = Split(sByValue, ";")
+	
+  Set objFound = xlsSheet.Range("A1:AN1").Find(arrColumns(0))
+	If objFound Is Nothing = False Then
+		iByColumn = objFound.Column
+	Else
+		MsgBox "Column " & arrColumns(0) & " is missing in sheet " & xlsSheet.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+
+	Set objFound = xlsSheet.Range("A1:AN1").Find(arrColumns(1))
+	If objFound Is Nothing = False Then
+		iByColumn1 = objFound.Column
+	Else
+		MsgBox "Column " & arrColumns(1) & " is missing in sheet " & xlsSheet.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find(arrColumns(2))
+	If objFound Is Nothing = False Then
+		iByColumn2 = objFound.Column
+	Else
+		MsgBox "Column " & arrColumns(2) & " is missing in sheet " & xlsSheet.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+	
+	Set objFound = xlsSheet.Range("A1:AN1").Find(sActionCodeColumn)
+	If objFound Is Nothing = False Then
+		iActionColumn = objFound.Column
+	Else
+		MsgBox "Column " & sActionCodeColumn & " is missing in sheet " & xlsSheet.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+
+	Set objFound = xlsSheet.Range("A1:AN1").Find("Attribute Name in UIDD")
+	If objFound Is Nothing = False Then
+		iAttributeNameColumn = objFound.Column
+	Else
+		MsgBox "Column Attribute Name in UIDD is missing in sheet " & xlsSheet.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+
+	Set objFound = xlsSheet.Range("A1:AN1").Find("Attribute Name In SC DB")
+	If objFound Is Nothing = False Then
+		iAttributeNameInDbColumn = objFound.Column
+	Else
+		MsgBox "Column Attribute Name In SC DB is missing in sheet " & xlsSheet.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+
+	Set objFound = xlsSheet.Range("A1:AN1").Find("Attribute Length In UIDD")
+	If objFound Is Nothing = False Then
+		iAttributeLengthColumn = objFound.Column
+	Else
+		MsgBox "Column Attribute Length In UIDD is missing in sheet " & xlsSheet.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+
+  ' Check number of attributes in XML section
+	Set objNodeList1 = objDoc.selectNodes("//item[orderableItem='" & sItem & "']/params/param/name")
+	iNumOfAttrInXml = objNodeList1.Length
+    
+  iFirstRow = -10
+	iCurrentRow = 10000
+	
+	Set objFound = xlsSheet.Columns(iByColumn).Find(arrValues(0), , , 2, 1, 1)
+	If objFound Is Nothing = False Then
+		iFirstRow = objFound.Row
+		While objFound Is Nothing = False And iCurrentRow > iFirstRow
+
+		If Lcase(xlsSheet.Cells(objFound.Row, iByColumn1).Value) = Lcase(arrValues(1)) And Lcase(xlsSheet.Cells(objFound.Row, iByColumn2).Value) = Lcase(arrValues(2)) Then ' Filter by CFS and Direction
+			sParamValue = ""
+			sAllowableValues = ""
+			sDataType = ""
+			sError = ""
+			iLen = ""
+			bValueOK = True
+			bDerivationValueOK = True
+			bFormatOK = True
+			bPrefixOK = True
+			bFoundOK = True
+			bLengthOK = True
+			bDuplicateOK = True
+			bDataTypeOK = True
+				
+			' Get values
+			bIsRequired = xlsSheet.Cells(objFound.Row, iActionColumn).Value
+			sAttributeName = xlsSheet.Cells(objFound.Row, iAttributeNameColumn).Value
+			sAttributeNameInDb = xlsSheet.Cells(objFound.Row, iAttributeNameInDbColumn).Value
+			sAttributeLength = xlsSheet.Cells(objFound.Row, iAttributeLengthColumn).Value
+			
+			' Deal with the [n] issue
+			If instr(sAttributeName, "[n]") > 0 Then
+				sAttributeName = Replace(sAttributeName, "[n]", "[" & Right(Trim(sAttributeNameInDb), 1) & "]") 
+			End If
+			
+			' Get derivation rules.
+			sSheet = "PR32 RFS DerivationRules"
+			sByColumn = "RFS Name;Attribute Name in UIDD;CFSSpecName"
+			sByValue =  arrValues(0) & ";" & sAttributeName & ";" & sCfsName
+			
+			If Trim(bIsRequired) = "R" Or Left(Trim(bIsRequired), 1) = "O" Then
+				fGetExcelValueDerivationRules sValidationByFile, sSheet, sByColumn, sByValue, sCfsName, sAttributeValue, sAttributePrefix, sAttributeFormat
+			Else
+				sAttributeValue = ""
+				sAttributePrefix = ""
+				sAttributeFormat = ""
+			End If
+			'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''			
+			
+			' Get "Allowable Values" and "Data Type" by "DB Attribute Name" in sheet "PR22 Attributes List"
+			sSheet = "PR22 Attributes List"
+			sByColumn = "DB Attribute Name"
+			sByValue = sAttributeNameInDb
+			sColumn = "Allowable Values;Data Type"
+	
+			If Trim(bIsRequired) = "R" Or Left(Trim(bIsRequired), 1) = "O" Then
+				fGetExcelValue sValidationByFile, sSheet, sByColumn, sByValue, sColumn, arrAllowableValues, arrDataTypes
+				bIsAllowableValues = True
+				sAllowableValues = arrAllowableValues(0)
+				sDataType = arrDataTypes(0)
+			Else
+				bIsAllowableValues = False
+				sAllowableValues = ""
+			End If
+			
+			' Check in XML (If bIsRequired = "R" - exist, else not exist)
+			Set objNodeList = objDoc.selectNodes("//item[orderableItem='" & sItem & "']/params/param[name='" & sAttributeName & "']/value")
+			
+			If objNodeList.length = 0 And sAttributeValue = "ELEMENT SHOULD'T EXIST" Then ' Shouldn't exist by derivation rules 
+				bFound = False
+				bFoundOK = True
+			ElseIf objNodeList.length = 1 And sAttributeValue = "ELEMENT SHOULD'T EXIST" Then ' Shouldn't exist by derivation rules 
+				sError = "Attribute exist. It shouldn't (by derivation rule)."
+				bFound = True
+				bFoundOK = False
+			ElseIf objNodeList.length > 1 And sAttributeValue = "ELEMENT SHOULD'T EXIST" Then ' Shouldn't exist by derivation rules 
+				sError = sError = "Duplicate Attribute. Attribute exist. It shouldn't (by derivation rule)."
+				bFound = True
+				bFoundOK = False
+			ElseIf objNodeList.length >1 and (bIsRequired = "R" Or Left(Trim(bIsRequired), 1) = "O") Then
+				sError = "Duplicate Attribute."
+				bDuplicateOK = False
+				bFoundOK = True
+			ElseIf objNodeList.length > 1 and (bIsRequired = "N/A" Or bIsRequired = "") Then
+				sError = "Duplicate Attribute. Attribute exist. It shouldn't."
+				bDuplicateOK = False
+				bFoundOK = False
+      ElseIf objNodeList.length = 0 and bIsRequired = "R" Then ' If Required and not found
+      	sError = "Attribute is missing."
+				bFound = False
+				bFoundOK = False
+			ElseIf objNodeList.length = 0 and (bIsRequired = "N/A" Or bIsRequired = "") Then ' If not Required and not found
+				bFound = False
+				bFoundOK = True
+			ElseIf objNodeList.length = 1 and (bIsRequired = "N/A" Or bIsRequired = "") Then ' If not Required and found
+				sError = "Attribute exist. It shouldn't."
+				bFound = True
+				bFoundOK = False
+			ElseIf objNodeList.length = 1 and (bIsRequired = "R" Or Left(Trim(bIsRequired), 1) = "O") Then ' If Required and found
+				bFound = True
+				bFoundOK = True
+      ElseIf objNodeList.length = 0 and Left(Trim(bIsRequired), 1) = "O" Then ' If Optional and not found
+				bFound = False
+				bFoundOK = True
+			End If
+			
+			'If sAttributeValue = "ELEMENT SHOULD'T EXIST" Then
+			'	 sAttributeValue = ""
+			'End If
+			
+			If bFound = True Then
+				ReDim Preserve arrAttrFound(iNumOfAttrFound)
+				arrAttrFound(iNumOfAttrFound) = sAttributeName
+				iNumOfAttrFound = iNumOfAttrFound + 1
+                    
+				' Get node value
+				sParamValue = Trim(objNodeList(0).Text)
+				
+				' Verify Length
+				iLen = Len(sParamValue)
+				If Trim(sAttributeLength) <> "" Then
+					If iLen > Cint(sAttributeLength) Then
+						sError = sError & vbNewLine & "Attribute value length is wrong."
+						bLengthOK = False
+					End If
+				End If
+					
+				' Verify Value by derivation rules
+				If Trim(sAttributeValue) <> "" Then
+					If Ucase(Trim(sAttributeValue)) <> Ucase(Trim(sParamValue)) Then
+						sError = sError & vbNewLine & "Attribute value is wrong according to derivation rules."
+						bDerivationValueOK = False
+					End If
+				Else
+					' Verify Allowable Values
+					If bIsAllowableValues = True Then
+						If Trim(arrAllowableValues(0)) <> "" Then
+							bValueOK = False
+							arrAllowableValues1 = Split(arrAllowableValues(0), ",")
+							For i = 0 to Ubound(arrAllowableValues1)
+								If Trim(arrAllowableValues1(i)) = sParamValue Then
+									bValueOK = True
+									Exit For
+								End If
+							Next
+							If bValueOK = False Then
+								sError = sError & vbNewLine & "Attribute value is wrong."
+							End If
+						End If
+					End If
+				End If
+				
+				' Verify format
+				If sAttributeFormat <> "" Then
+					' Create format verification function 
+					If fCheckFormat(sParamValue, sAttributeFormat) = False Then
+						sError = sError & vbNewLine & "Attribute format is wrong according to derivation rules."
+						bFormatOK = False
+					End If
+				End If
+				
+				' Verify prefix
+				If Trim(sAttributePrefix) <> "" Then
+					If Trim(sAttributePrefix) <> Mid(Trim(sParamValue), 1, Len(Trim(sAttributePrefix))) Then
+						sError = sError & vbNewLine & "Attribute prefix is wrong according to derivation rules."
+						bPrefixOK = False
+					End If
+				End If
+				
+				' Verify Data Type
+				If Lcase(arrDataTypes(0)) = "string" Then
+					' Nothing to check
+				ElseIf Lcase(arrDataTypes(0)) = "integer" Then
+					If IsNumeric(sParamValue) = False Then
+						bDataTypeOK = False
+						sError = sError & vbNewLine & "Attribute data type is wrong."
+					End If
+				ElseIf Lcase(arrDataTypes(0)) = "boolean" Then
+					If sParamValue <> "Y" And sParamValue <> "N" And sParamValue <> "0" And sParamValue <> "1" And Lcase(sParamValue) <> "true" And Lcase(sParamValue) <> "false" Then
+						bDataTypeOK = False
+					End If
+				End If   
+			End If
+		
+			If bValueOK = False Or bLengthOK = False Or bFoundOK = False Or bDuplicateOK = False Or bDataTypeOK = False Or bDerivationValueOK = False Or bPrefixOK = False Or bFormatOK = False Then
+				bStatus = "FAIL"
+			Else
+				bStatus = "PASS"
+			End If
+			
+			' If sAllowableValues is too large for the table, split it to rows
+			If Len(sAllowableValues) > 40 Then
+				sTemp = ""
+				While Len(sAllowableValues) > 40
+					sTemp = sTemp & Mid(sAllowableValues, 1, 40) & "<BR>"
+					'iStart = iStart + 40
+					sAllowableValues = Mid(sAllowableValues, 41)
+				Wend
+				sTemp = sTemp & sAllowableValues
+				sAllowableValues = sTemp
+			End If
+						
+			iCounter = iCounter + 1
+			If iCounter MOD 2 = 0 Then
+				objFile.WriteLine("<TR style='background-color: 96CDCD'>")
+			Else
+				objFile.WriteLine("<TR>")
+			End If
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(sAttributeName)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(bIsRequired)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(bFound)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			If sAttributeValue <> "" Then
+				objFile.WriteLine(sAllowableValues & "\<B>" & Trim(sAttributeValue) & "</B>")
+			Else
+				objFile.WriteLine(sAllowableValues)
+			End If
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(sParamValue)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(sAttributeLength)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(iLen)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(sDataType)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(sAttributePrefix)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(sAttributeFormat)
+			objFile.WriteLine("</TD>")
+			If bStatus = "FAIL" Then
+				objFile.WriteLine("<TD style='background-color: FF4040'>")
+				fVerifyXml = False
+			Else
+				objFile.WriteLine("<TD>")
+			End If
+			objFile.WriteLine(bStatus)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("<TD>")
+			objFile.WriteLine(sError)
+			objFile.WriteLine("</TD>")
+			objFile.WriteLine("</TR>")
+				
+			'TDI
+			If trim(sQCServer) <> "" Then
+				If right(sQCFolder, 1) <> "\" Then
+					sQCFolder = sQCFolder & "\"
+				End If
+				If bStatus = "PASS" Then
+					TdiStatus = True
+				Else
+					TdiStatus = False
+				End If
+				
+				Call TDIRequestTCs("TEST_SET_" & sQcSetName, _
+									sQCFolder & "SET_" & sQcSetName, _
+									iCounter, _
+									sAttributeName, _
+									TdiStatus, _
+									"DONE")
+			End If			
+      ' Next Row
+   	End If
+   	Set objFound = xlsSheet.Columns(iByColumn).FindNext(objFound)
+		If objFound Is Nothing = False Then
+			iCurrentRow = objFound.Row
+		End If
+	Wend
+
+		sError = ""
+		If iNumOfAttrFound < iNumOfAttrInXml Then
+			For i = 0 to objNodeList1.Length - 1
+				bFound = False
+				For j = 0 to Ubound(arrAttrFound)
+					If objNodeList1(i).Text = arrAttrFound(j) Then
+						bFound = True
+					End If
+				Next
+				If bFound = False Then
+					fVerifyXml = False
+					iCounter = iCounter + 1
+					sError = "Exist in XML, doesn't exist in Excel."
+					If iCounter MOD 2 = 0 Then
+						objFile.WriteLine("<TR style='background-color: 96CDCD'>")
+					Else
+						objFile.WriteLine("<TR>")
+					End If
+					objFile.WriteLine("<TD>")
+					objFile.WriteLine(objNodeList1(i).Text)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					'objFile.WriteLine(bIsRequired)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					objFile.WriteLine(True)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					'objFile.WriteLine(sAllowableValues)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					objFile.WriteLine(objDoc.selectSingleNode("//item[orderableItem='" & sItem & "']/params/param[name='" & objNodeList1(i).Text & "']/value").Text)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					'objFile.WriteLine(sAttributeLength)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					objFile.WriteLine(Len(objDoc.selectSingleNode("//item[orderableItem='" & sItem & "']/params/param[name='" & objNodeList1(i).Text & "']/value").Text))
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					'objFile.WriteLine(sDataType)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					'objFile.WriteLine(sAttributePrefix)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					'objFile.WriteLine(sAttributeFormat)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD style='background-color: FF4040'>")
+          objFile.WriteLine("FAIL")
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("<TD>")
+					objFile.WriteLine(sError)
+					objFile.WriteLine("</TD>")
+					objFile.WriteLine("</TR>")
+					
+					If trim(sQCServer) <> "" Then
+						Call TDIRequestTCs("TEST_SET_" & sQcSetName, _
+									sQCFolder & "SET_" & sQcSetName, _
+									iCounter, _
+									objNodeList1(i).Text, _
+									False, _
+									"DONE")
+					End If
+				End If
+		Next
+        End If
+	Else
+		
+		fVerifyXml = False
+		Exit Function
+	End If
+	
+End Function
+
+Public Function fGetExcelValue(ByVal sFile, ByVal sSheet, ByVal sByColumn, ByVal sByValue, ByVal sColumn, ByRef arrValues, ByRef arrValues1)
+
+	Dim xlsSheet1, objFound1, iByColumn, iByColumn1, iRow, iColumn, arrByColumn, arrByValue, iFirstRow, iCurrentRow
+	Dim bFound, i, iColumn1
+	Dim arrColumn
+	
+	i = -1
+	
+  Set xlsSheet1 = xlsBook.Worksheets(sSheet)
+	
+	arrByColumn = Split(sByColumn, ";")
+	arrByValue = Split(sByValue, ";")
+	arrColumn = Split(sColumn, ";")
+
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find(arrColumn(0))
+	If objFound1 Is Nothing = False Then
+		iColumn = objFound1.Column
+	Else
+		MsgBox "Column " & arrColumn(0) & " is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+
+	If Ubound(arrColumn) = 1 Then
+		Set objFound1 = xlsSheet1.Range("A1:AN1").Find(arrColumn(1))
+		If objFound1 Is Nothing = False Then
+			iColumn1 = objFound1.Column
+		Else
+			MsgBox "Column " & arrColumn(1) & " is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+			Exit Function	
+		End If
+	End If
+	
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find(arrByColumn(0))
+	If objFound1 Is Nothing = False Then
+		iByColumn = objFound1.Column
+	Else
+			MsgBox "Column " & arrColumn(0) & " is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+			Exit Function	
+	End If
+
+	If Ubound(arrByColumn) = 1 Then
+		Set objFound1 = xlsSheet1.Range("A1:AN1").Find(arrByColumn(1))
+		If objFound1 Is Nothing = False Then
+			iByColumn1 = objFound1.Column
+		Else
+			MsgBox "Column " & arrColumn(1) & " is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+			Exit Function	
+		End If
+	End If
+	
+  iFirstRow = -10
+	iCurrentRow = 10000
+	bFound = False
+	
+	Set objFound1 = xlsSheet1.Columns(iByColumn).Find(arrByValue(0), , , 1)
+	If objFound1 Is Nothing = False Then
+		bFound = True
+		iFirstRow = objFound1.Row
+        While objFound1 Is Nothing = False And iCurrentRow > iFirstRow
+			If Ubound(arrByColumn) = 1 Then
+				If xlsSheet1.Cells(objFound1.Row, iByColumn1).Value = arrByValue(1) Then
+                    iRow = objFound1.Row
+				Else
+					bFound = False
+                End If
+			Else
+                iRow = objFound1.Row
+			End If
+
+			If bFound = True Then
+				i = i + 1
+				ReDim Preserve arrValues(i)
+				arrValues(i) = xlsSheet1.Cells(iRow, iColumn).Value
+				If Ubound(arrColumn) = 1 Then
+					ReDim Preserve arrValues1(i)
+					arrValues1(i) = xlsSheet1.Cells(iRow, iColumn1).Value
+				End If
+			End If
+            
+			Set objFound1 = xlsSheet1.Columns(iByColumn).FindNext(objFound1)
+			iCurrentRow = objFound1.Row
+		Wend
+	Else
+        fGetExcelValue = False
+		Erase arrValues
+		Erase arrValues1
+		Exit Function
+	End If
+	
+	If i = -1 Then
+		fGetExcelValue = False
+		Erase arrValues
+		Erase arrValues1
+		Exit Function
+	End If
+
+	fGetExcelValue = True
+	
+End Function
+
+Public Function fCheckByDbName(ByVal sDbName, ByVal iNumber)
+	
+	If iNumber = "" Then
+		fCheckByDbName = True
+		Exit Function
+	End If
+	
+	If Right(Trim(sDbName), 1) = iNumber Then
+		fCheckByDbName = True
+	Else
+		fCheckByDbName = False
+	End If
+	
+End Function
+
+Public Function fGetExcelValueDerivationRules(ByVal sFile, ByVal sSheet, ByVal sByColumn, ByVal sByValue, ByVal sCfsName, ByRef sXmlExpValue, ByRef sXmlExpPrefix, ByRef sXmlExpFormat)
+
+	Dim xlsSheet1, objFound1, iByColumn, iByColumn1, iByColumn2, iRow, iColumn, arrByColumn, arrByValue, iFirstRow, iCurrentRow
+	Dim bFound, i, iColumn1, bDone, sIfDbValue, sActualDbValue, sDbName, sSQL
+	Dim arrColumn
+	Dim iAttributeInSCColumn, iRelationalOperatorColumn, iDBValueColumn, iAttributeInUIDDColumn,	iXMLValueColumn, iFormatColumn, iPrefixColumn
+	Dim iConditionalOperatorColumn, iNumOfInstances, sTemp, iDbNameColumn, sRelationalOperator
+		
+	bDone = False
+	sXmlExpValue = ""
+	sXmlExpPrefix = ""
+	sXmlExpFormat = ""
+	sTemp = ""
+	
+  Set xlsSheet1 = xlsBook.Worksheets(sSheet)
+	
+	arrByColumn = Split(sByColumn, ";")
+	arrByValue = Split(sByValue, ";")
+	
+	' Columns to search by
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find(arrByColumn(0))
+	If objFound1 Is Nothing = False Then
+		iByColumn = objFound1.Column
+	Else
+			MsgBox "Column " & arrColumn(0) & " is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+			Exit Function	
+	End If
+
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find(arrByColumn(1))
+	If objFound1 Is Nothing = False Then
+		iByColumn1 = objFound1.Column
+	Else
+		MsgBox "Column " & arrByColumn(1) & " is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+	
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find(arrByColumn(2))
+	If objFound1 Is Nothing = False Then
+		iByColumn2 = objFound1.Column
+	Else
+		MsgBox "Column " & arrByColumn(2) & " is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+	
+	' Conditions columns
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find("conditional operator")
+	If objFound1 Is Nothing = False Then
+		iConditionalOperatorColumn = objFound1.Column
+	Else
+		MsgBox "Column conditional operator is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+	
+	' Prefix column
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find("Prefix")
+	If objFound1 Is Nothing = False Then
+		iPrefixColumn = objFound1.Column
+	Else
+		MsgBox "Column Prefix is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+	
+	' Format columnt
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find("Format")
+	If objFound1 Is Nothing = False Then
+		iFormatColumn = objFound1.Column
+	Else
+		MsgBox "Column Format is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+
+	' Format columnt
+	Set objFound1 = xlsSheet1.Range("A1:AN1").Find("Attribute Name In SC DB")
+	If objFound1 Is Nothing = False Then
+		iDbNameColumn = objFound1.Column
+	Else
+		MsgBox "Column Attribute Name In SC DB is missing in sheet " & xlsSheet1.Name, vbCritical, "QTP Web Demo - Missing in SDDB file..."	
+		Exit Function	
+	End If
+		
+	iAttributeInSCColumn = iConditionalOperatorColumn + 1
+	iRelationalOperatorColumn = iConditionalOperatorColumn + 2
+	iDBValueColumn = iConditionalOperatorColumn + 3
+	iAttributeInUIDDColumn = iConditionalOperatorColumn + 5
+	iXMLValueColumn = iConditionalOperatorColumn + 6
+	
+	' Deal with [n] issue
+	sTemp = fRegExp("[[0-9]+]", arrByValue(1), iNumOfInstances)
+	If iNumOfInstances = 1 Then
+		' Replace Number with n
+		arrByValue(1) = Replace(arrByValue(1), sTemp, "[n]")
+		' Get the number to search by in the Attribute Name In SC DB column
+		sTemp = Replace(sTemp, "[", "")
+		sTemp = Replace(sTemp, "]", "")
+		sTemp = Trim(sTemp)
+	End If
+	
+	' Find first occurance
+	Set objFound1 = xlsSheet1.Columns(iByColumn).Find(arrByValue(0), , , 1)
+	If objFound1 Is Nothing = True Then
+		Exit Function
+	End If
+	
+	 For i = objFound1.Row to xlsSheet1.UsedRange.Rows.Count
+	 	If xlsSheet1.Cells(i, iByColumn).Value = arrByValue(0) And xlsSheet1.Cells(i, iByColumn1).Value = arrByValue(1) And xlsSheet1.Cells(i, iByColumn2).Value = arrByValue(2) And fCheckByDbName(xlsSheet1.Cells(i, iDbNameColumn).Value, sTemp) = True Then
+			If Trim(xlsSheet1.Cells(i, iPrefixColumn).Value) <> "" Then ' Get Prefix
+				sXmlExpPrefix = xlsSheet1.Cells(i, iPrefixColumn).Value
+			End If
+			If Trim(xlsSheet1.Cells(i, iFormatColumn).Value) <> "" Then ' Get Format
+				sXmlExpFormat = xlsSheet1.Cells(i, iFormatColumn).Value
+			End If
+						
+			' Check condition
+			If Trim(Lcase(xlsSheet1.Cells(i, iConditionalOperatorColumn).Value)) = "if" Then
+				sDbName = xlsSheet1.Cells(i, iAttributeInSCColumn).Value
+				
+				' Get value from DB
+				If Lcase(sDbName) = "barred_flag" Then
+					sSQL = "SELECT DISTINCT forde.ATTRIBUTE_value " & _
+								 "FROM TABLE_SITE_PART cfs, TABLE_FA_SITE_PART att_cfs,TABLE_OSS_JOB job, TABLE_ORDER_LINE orde,TABLE_FA_ORDER_LINE forde, " & _
+								 "TABLE_ORDER_ACTION act, TABLE_CONTRACT con, TABLE_OSS_JOB_LIST jlist, " & _
+								 "TABLE_MOD_LEVEL MOD, TABLE_PART_NUM part WHERE act.order_action2contract=con.objid " & _
+								 "AND orde.order_line2order_action=act.objid " & _
+								 "AND cfs.site_part2order_line=orde.objid " & _
+								 "AND jlist.OSS_JOB_LIST2ORD_LINE=orde.objid " & _
+								 "AND job.OSS_JOB2JOB_LIST=jlist.objid " & _
+								 "AND orde.order_line2mod_level=MOD.objid " & _
+								 "AND MOD.PART_INFO2PART_NUM=part.objid " & _
+								 "AND att_cfs.fa_site_part2site_part=cfs.objid " & _
+								 "AND forde.FA_ORDER_LINE2ORDER_LINE = orde.objid " & _
+								 "AND con.oss_cust_order_no = '" & iOrderId & "' " & _
+								 "AND part.part_number = '" & sCfsName & "' " & _
+								 "AND forde.attribute_name = 'x_is_barred'"
+				ElseIf Lcase(sDbName) = "hlr profile id" Then
+					sSQL = "SELECT att_cfs.ATTRIBUTE_value " & _
+								 "FROM TABLE_SITE_PART cfs, TABLE_FA_SITE_PART att_cfs,TABLE_OSS_JOB job, TABLE_ORDER_LINE orde, " & _
+								 "TABLE_ORDER_ACTION act, TABLE_CONTRACT con, TABLE_OSS_JOB_LIST jlist, " & _
+								 "TABLE_MOD_LEVEL MOD, TABLE_PART_NUM part " & _
+								 "WHERE act.order_action2contract=con.objid " & _
+								 "AND orde.order_line2order_action=act.objid " & _
+								 "AND cfs.site_part2order_line=orde.objid " & _
+								 "AND jlist.OSS_JOB_LIST2ORD_LINE=orde.objid " & _
+								 "AND job.OSS_JOB2JOB_LIST=jlist.objid " & _
+								 "AND orde.order_line2mod_level=MOD.objid " & _
+								 "AND MOD.PART_INFO2PART_NUM=part.objid " & _
+								 "AND att_cfs.fa_site_part2site_part=cfs.objid " & _
+								 "AND con.oss_cust_order_no = '" & iOrderId & "' " & _
+								 "AND att_cfs.attribute_name LIKE ('Service_Type_Identifier')"		
+				Else
+					sSQL = "SELECT att_cfs.ATTRIBUTE_value " & _
+								 "FROM TABLE_SITE_PART cfs, TABLE_FA_SITE_PART att_cfs,TABLE_OSS_JOB job,  TABLE_ORDER_LINE orde, " & _
+								 "TABLE_ORDER_ACTION act, TABLE_CONTRACT con, TABLE_OSS_JOB_LIST jlist, " & _
+								 "TABLE_MOD_LEVEL MOD, TABLE_PART_NUM part " & _
+								 "WHERE act.order_action2contract=con.objid " & _
+								 "AND orde.order_line2order_action=act.objid " & _
+								 "AND cfs.site_part2order_line=orde.objid " & _
+								 "AND jlist.OSS_JOB_LIST2ORD_LINE=orde.objid " & _
+								 "AND job.OSS_JOB2JOB_LIST=jlist.objid " & _
+								 "AND orde.order_line2mod_level=MOD.objid " & _
+								 "AND MOD.PART_INFO2PART_NUM=part.objid " & _
+								 "AND att_cfs.fa_site_part2site_part=cfs.objid " & _
+								 "AND con.oss_cust_order_no = '" & iOrderId & "' " & _
+								 "AND part.part_number = '" & sCfsName & "' " & _
+								 "AND att_cfs.ATTRIBUTE_NAME = '" & sDbName & "'"
+				End If
+				
+				fGetOneValueFromDb sDbInstance, sDbUser, sDbPwd, sSQL, sActualDbValue
+
+				sIfDbValue = xlsSheet1.Cells(i, iDBValueColumn).Value
+				sXmlExpValue = xlsSheet1.Cells(i, iXMLValueColumn).Value
+				sRelationalOperator = xlsSheet1.Cells(i, iRelationalOperatorColumn).Value
+				
+				If Trim(sRelationalOperator) = ">=" Then
+					If Cdbl(Trim(sActualDbValue)) >= Cdbl(Trim(sIfDbValue)) Then
+						' If value is empty - element shouldn't be in the XML even if R
+						If Trim(sXmlExpValue) = "" Then
+							sXmlExpValue = "ELEMENT SHOULD'T EXIST"
+						End If
+						bDone = True
+					End If
+				ElseIf Cstr(Trim(sIfDbValue)) = Cstr(Trim(sActualDbValue)) Then
+					' If value is empty - element shouldn't be in the XML even if R
+					If Trim(sXmlExpValue) = "" Then
+						sXmlExpValue = "ELEMENT SHOULD'T EXIST"
+					End If
+					bDone = True
+				End If
+				
+				If bDone = True And sXmlExpPrefix <> "" And sXmlExpFormat <> "" Then
+						' If value is empty - element shouldn't be in the XML even if R
+						If Trim(sXmlExpValue) = "" Then
+							sXmlExpValue = "ELEMENT SHOULD'T EXIST"
+						End If
+						Exit For 
+				End If
+				
+				iRow = i + 1
+				While xlsSheet1.Cells(iRow, iByColumn).Value = arrByValue(0) And xlsSheet1.Cells(iRow, iByColumn1).Value = arrByValue(1) And xlsSheet1.Cells(iRow, iByColumn2).Value = arrByValue(2) And fCheckByDbName(xlsSheet1.Cells(iRow, iDbNameColumn).Value, sTemp) = True And Trim(Lcase(xlsSheet1.Cells(iRow, iConditionalOperatorColumn).Value)) <> "" And Trim(Lcase(xlsSheet1.Cells(iRow, iConditionalOperatorColumn).Value)) <> "if"
+					
+					If Trim(xlsSheet1.Cells(iRow, iPrefixColumn).Value) <> "" Then ' Get Prefix
+						sXmlExpPrefix = xlsSheet1.Cells(iRow, iPrefixColumn).Value
+					End If
+					If Trim(xlsSheet1.Cells(iRow, iFormatColumn).Value) <> "" Then ' Get Format
+						sXmlExpFormat = xlsSheet1.Cells(iRow, iFormatColumn).Value
+					End If
+					
+					' Get condition
+					If bDone = False Then
+						sIfDbValue = xlsSheet1.Cells(iRow, iDBValueColumn).Value
+						sXmlExpValue = xlsSheet1.Cells(iRow, iXMLValueColumn).Value
+				
+						If Cstr(Trim(sIfDbValue)) = Cstr(Trim(sActualDbValue)) Or Trim(Lcase(xlsSheet1.Cells(iRow, iConditionalOperatorColumn).Value)) = "else" Then
+							bDone = True
+							' If value is empty - element shouldn't be in the XML even if R
+							If Trim(sXmlExpValue) = "" Then
+								sXmlExpValue = "ELEMENT SHOULD'T EXIST"
+							End If
+						End If
+					End If 	
+				
+					If bDone = True And sXmlExpPrefix <> "" And sXmlExpFormat <> "" Then
+						' If value is empty - element shouldn't be in the XML even if R
+						If Trim(sXmlExpValue) = "" Then
+							sXmlExpValue = "ELEMENT SHOULD'T EXIST"
+						End If
+						Exit For 
+					End If
+					
+					iRow = iRow + 1
+					
+				Wend
+				 
+			End If
+			Exit For
+		End If
+	Next
+	
+	fGetExcelValueDerivationRules = True
+	
+End Function
+
+Public Function fORAConnect(sServer, sUser, sPassword, ByRef mCnDB)
+
+	On Error Resume Next
+	
+	Set mCnDB = CreateObject("ADODB.connection")
+	mCnDB.ConnectionString = "Provider=msdaora;" & _
+	                         "Data Source=" &  sServer & ";" & _
+							 "User Id=" &  sUser & ";" & _
+							 "Password=" & sPassword & ";"
+						
+	mCnDB.Open
+	If Err.Number <> 0 Then
+        	Err.Clear
+
+		'trying to connect with different provider
+		mCnDB.ConnectionString = "Provider=oraOLEDB.Oracle;" & _
+		                         "Data Source=" &  sServer & ";" & _
+								 "User Id=" &  sUser & ";" & _
+								 "Password=" & sPassword & ";"
+		mCnDB.Open
+		If Err.Number <> 0 Then
+			MsgBox "fORAConnect " & Err.Number & " - " & Err.Description, vbCritical, "fORAConnect"
+			Set mCnDB = Nothing
+			Err.Clear
+			On Error GoTo 0
+			fORAConnect = FALSE
+			Exit Function
+		End If
+	End If
+						
+	If Err.Number <> 0 Then
+		MsgBox "fORAConnect " & Err.Number & " - " & Err.Description, vbCritical, "fORAConnect"
+		Set mCnDB = Nothing
+		Err.Clear
+		On Error GoTo 0
+		fORAConnect = FALSE
+		Exit Function
+	End If
+						
+  On Error GoTo 0
+
+	fORAConnect = TRUE
+			 
+End Function
+
+Public Function fExeQuery(ByRef mCnDB, sSQL, ByRef objRS)
+
+	On Error Resume Next
+
+	objRS.Open sSQL, mCnDB
+	If Err.Number <> 0 Then
+		MsgBox "DB Query: " & Err.Number & " - " & Err.Description & vbnewline & "SQL: " & sSQL , vbCritical, "DB Query"
+		Err.Clear
+		on error goto 0
+		fExeQuery = FALSE
+		Exit Function
+	End If
+	
+	On Error GoTo 0
+	
+  fExeQuery = True
+	
+End Function
+
+Public Function fRunExe(ByVal sExePath)
+
+	On Error Resume Next
+
+	Dim objShell
+
+	'sExePath = """" & sExePath & """"
+	
+	Set objShell = CreateObject("wscript.shell")
+	Call objShell.Run(sExePath, 0)
+	
+	If Err.Number <> 0 Then
+		MsgBox "fRunExe: " & Err.Number & " - " & Err.Description, vbCritical, "fRunExe"
+		Err.Clear
+		fRunExe = FALSE
+		on error goto 0
+		Exit Function
+	End If
+	
+	Set objShell = Nothing
+	fRunExe = TRUE
+	
+	On error goto 0
+	
+End Function
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fRegExp()
+' Description:  	Return all ocurences of a regular expression, seperated by ","
+' Parameters:   	1. sPatern - The regular expression patern
+'									2. sStr - The string to search for the pattern in
+'									3. iNumOfInstances - Number of reg exp instances
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, 10/11/2007
+' Updated:
+' Notes:            
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function fRegExp(sPatern, sStr, iNumOfInstances)
+
+   Dim regEx, Match, Matches, RetStr   ' Create variable.
+   iNumOfInstances = 0
+   
+   Set regEx = New RegExp   ' Create a regular expression.
+   regEx.Pattern = sPatern   ' Set pattern.
+   regEx.IgnoreCase = False   ' Set case insensitivity.
+   regEx.Global = True   ' Set global applicability.
+   Set Matches = regEx.Execute(sStr)   ' Execute search.
+   For Each Match in Matches  ' Iterate Matches collection.
+	   If Match.Value <> "" Then
+		   RetStr = RetStr & "," & Match.Value
+		   iNumOfInstances = iNumOfInstances + 1
+	   End If
+   Next
+   RetStr = mid(RetStr, 2)
+   fRegExp = RetStr
+   
+End Function
+
+Public Function fViewAllReports()
+
+	Dim fso, objFile, objFolder, objRow, objCell, iOrder, iLeft, iRight, objLink, objCheckBox, i, sTemp, iPos, rc
+	Redim arrReports(0)
+	Redim arrReportsDate(0)
+	
+	i = 0
+	
+	While Document.GetElementById("tblReports").Rows.Length > 0
+		Document.GetElementById("tblReports").DeleteRow 0
+	Wend
+	
+	Set fso = CreateObject("scripting.filesystemobject")
+	Set objFolder = fso.GetFolder(sReportsFolder)
+	
+	If objFolder.Files.Count = 0 Then
+		Exit Function
+	End If
+	
+	For Each objFile in objFolder.Files
+		Redim Preserve arrReportsDate(i)
+		arrReportsDate(i) = objFile.DateCreated
+		
+		Redim Preserve arrReports(i)
+		arrReports(i) = objFile.Name
+		If i > 0 Then
+			iPos = 1
+			rc = datediff("s", arrReportsDate(i - iPos + 1), arrReportsDate(i - iPos))
+			If rc < 0 Then
+				Do
+					sTemp = arrReports(i - iPos + 1)
+					arrReports(i - iPos + 1) = arrReports(i - iPos)
+					arrReports(i - iPos) = sTemp
+					sTemp = arrReportsDate(i - iPos + 1)
+					arrReportsDate(i - iPos + 1) = arrReportsDate(i - iPos)
+					arrReportsDate(i - iPos) = sTemp
+					iPos = iPos + 1
+					If iPos > i Then
+						Exit Do
+					End If
+				Loop While datediff("s", arrReportsDate(i - iPos + 1), arrReportsDate(i - iPos)) < 0
+			End If
+		End If
+		i = i + 1
+	Next
+	
+	For i = 0 to Ubound(arrReports)
+		iLeft = InStr(arrReports(i), "Unique ID")
+		iRight = InStr(arrReports(i), "Date")
+		iOrder = Trim(Mid(arrReports(i), iLeft + 9, iRight - iLeft - 9))
+		set objRow = document.GetElementById("tblReports").InsertRow
+		
+		set objCell = document.createElement("TD")
+		objRow.appendChild(objCell)
+			
+		set objCheckBox = document.createElement("INPUT")
+		objCheckBox.Type = "checkbox"
+		objCheckBox.Id = "chkReport_" & i + 1
+		objCheckBox.Name = sReportsFolder & arrReports(i)
+		objCell.appendChild(objCheckBox)
+			
+		set objCell = document.createElement("TD")
+				
+		Set objLink = document.createElement("A")
+		objLink.Href = sReportsFolder & arrReports(i)
+		objLink.InnerText = iOrder
+		objLink.Target = "_blank"
+		objCell.appendChild(objLink)
+		objRow.appendChild(objCell)
+	 		
+		set objCell = document.createElement("TD")
+		objCell.InnerText = arrReportsDate(i)
+		objRow.appendChild(objCell)
+		
+		
+	Next
+	'End If
+
+	Set fso = Nothing
+  	
+End Function
+
+Public Function fAddToReportsList()
+
+	Dim objRow, objCell, objLink, objCheckBox
+
+	set objRow = document.GetElementById("tblReports").InsertRow(0)
+	
+	set objCell = document.createElement("TD")
+	objRow.appendChild(objCell)
+		
+	set objCheckBox = document.createElement("INPUT")
+	objCheckBox.Type = "checkbox"
+	objCheckBox.Id = "chkReport_" & document.GetElementById("tblReports").Rows.Length
+	objCheckBox.Name = sResultPath
+	objCell.appendChild(objCheckBox)
+	
+	set objCell = document.createElement("TD")
+			
+	Set objLink = document.createElement("A")
+	objLink.Href = sResultPath
+	objLink.InnerText = iOrderId
+	objCell.appendChild(objLink)
+	objRow.appendChild(objCell)
+	 		
+	set objCell = document.createElement("TD")
+	objCell.InnerText = Now
+	objRow.appendChild(objCell)
+	
+End Function
+
+Public Function fDeleteReport()
+	
+	Dim fso, i
+	
+	Document.GetElementById("chkAllReports").Checked = False
+	
+	Set fso = CreateObject("scripting.filesystemobject")
+		
+	For i = 1 to Document.GetElementById("tblReports").Rows.Length
+		If Document.GetElementById("chkReport_" & i).Checked = True Then
+			fso.DeleteFile Document.GetElementById("chkReport_" & i).Name
+			'Document.GetElementById("tblReports").DeleteRow i - 1
+		End If		
+	Next
+	
+	fViewAllReports
+	
+	If Document.GetElementById("tblReports").Rows.Length = 0 Then
+		Document.GetElementById("btnViewReport").Disabled = True
+	End If
+	
+	Set fso = Nothing
+	
+End Function
+
+Public Function fGetCfsListByEnter(e)
+	
+	dim keynum
+	
+	keynum = e.keyCode
+	
+	If keynum = 13 Then    
+		fGetOrders()
+	End If
+	
+End Function
+
+Public Function fSetSearchByParams()
+	
+	Dim sValue
+	
+	fClean()
+	
+	If instr(Document.GetElementById("lstSearchBy").Value, "Order ID") > 0 Then
+		sFilterType = "OrderId"
+	ElseIf instr(Document.GetElementById("lstSearchBy").Value, "Contract") > 0 Then
+		sFilterType = "Contract"
+	Else
+		sFilterType = "OrderAction"
+	End if
+	
+	If instr(Document.GetElementById("lstSearchBy").Value, "(") > 0 Then
+		sValue = Trim(Mid(Document.GetElementById("lstSearchBy").Value, 1, instr(Document.GetElementById("lstSearchBy").Value, "(") - 1)) & ":"
+	Else
+		sValue = Document.GetElementById("lstSearchBy").Value & ":"
+	End if
+	Document.GetElementById("tdFilterLabel").InnerText = sValue
+	
+End Function
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function name: 	fHelp
+' Description:  	Showing help file for the clicked help image
+'									1. obj - The image clicked
+' Parameters:   	
+' Return value:   Sucess - True
+'									Failure - False
+' Author:       	Gil Shalev, Feb 2008
+' Updated:
+' Notes:			
+' Example:	    	
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public function fHelp(obj)
+
+	Dim sFile
+	
+	If obj.name = "imgInfoSingle" then
+		sFile = "SingleMode.html"
+	ElseIf obj.name = "imgInfoFlow" Then
+		sFile = "FlowMode.html"
+	ElseIf obj.name = "imgInfoFlowLog" Then
+		sFile = "FlowLog.html"
+	ElseIf obj.name = "imgInfoUnix" Then
+		sFile = "Unix.html"
+	ElseIf obj.name = "imgInfoGeneral" Then
+		sFile = "General.html"
+	ElseIf obj.name = "imgInfoOrderDetailes" Then
+		sFile = "OrderDetails.html"
+	ElseIf obj.name = "imgInfoMoliOliDetails" Then
+		sFile = "MoliOliDetails.html"
+	ElseIf obj.name = "tdMenuAbout" Then
+		sFile = ""
+		window.showModalDialog sHelpFolder & "About.html", "", "dialogWidth:700px; dialogHeight:400px; dialogLeft:200px; edge:sunken;"
+	End If
+	
+	If sFile <> "" Then
+		window.open sHelpFolder & sFile, "", "channelmode=no,height=450,width=400, scrollbars=yes, top=100, left=700"	
+	End If
+	
+End Function
+
+</script>
+
+<table style="height: 100%; width:100%">
+	
+	<tr style="height: 100%; width:100%">
+  	<td style="height: 100%; width: 50%; vertical-align:Top" id=tdLeft name=tdLeft>
+	
+    	<table width=500px>
+    			<tr>
+        		
+						<td width=100% style="background-color: #607B8B">
+							<FONT color=white>Execution Parameters</FONT>
+        		
+        	</td>
+        	<!--<td style="background-color: #607B8B; border-left-color: #607B8B">
+        		
+        	         		
+        			<img align=rigth valign=bottom src=".\Icons\help.ico" style="cursor: hand" id=imgInfoGeneral name=imgInfoGeneral onclick=fHelp(this)>
+        		</td>-->
+      		</tr>
+     		</table>
+     	
+    		
+    		<table style="border-color: black; border:1px solid" id=tblDetails width=500px>
+    			<tr>
+        		<td>
+        		Env #: 
+        		</TD>
+        	
+        	
+        		
+        		<td>
+        			<select class=RegularWide id="lstEnv" OnChange="fClean()">
+        				<option value="Select Env">Select Env</option>
+        				<option value="Env 1">Env 1</option>
+        				<option value="Env 2">Env 2</option>
+        				<option value="Env 3">Env 3</option>
+        				<option value="Env 4">Env 4</option>
+        			</select>
+				    </td>
+				  	
+				  	<td>
+        		SDDB version: 
+        		</TD>
+        		  <td>
+        			<select class=RegularVeryWide id="lstSddbVersion">
+        				<option value="Select SDDB">Select SDDB</option>
+        				<option value="V2.2.3.A.2.1_New_withDerivationRules.xls">V2.2.3.A.2.1_New_withDerivationRules.xls</option>
+        				<option value="V2.2.3.A.2.1_New.xls">V2.2.3.A.2.1_New.xls</option>
+        				<option value="V2.2.3.A.2.1.xls">V2.2.3.A.2.1.xls</option>
+        				<option value="SDDB Release V2.2.3.A.2.xls">SDDB Release V2.2.3.A.2.xls</option>
+        			</select>
+				    </td>
+				    </tr>
+        	<tr>
+        		
+        		<td>
+        		Search By: 
+        		</TD>
+        		<td>
+        			<select class=RegularWide id="lstSearchBy" OnChange="fSetSearchByParams()">
+        				<option value="Order ID">Order ID</option>
+        				<option value="ObjID (Order Action)">ObjID (Order Action)</option>
+        				<option value="ObjID (Contract)">ObjID (Contract)</option>
+        			</select>
+            </td>
+        		
+				    <td id=tdFilterLabel>
+        		Order ID: 
+        		</TD>
+        		<td>
+        			<input class=RegularVeryWide id=txtUniqueId OnKeyDown="fGetCfsListByEnter(event)">
+            </td>
+            
+           
+        		
+        	</tr>
+        	
+        	
+        </table>
+         <table>
+
+    			<tr>
+        		<td>
+
+        		<input type=button class=Regular id=btnGetOrders value='Get Orders' OnClick="fGetOrders()">
+        		</td>
+        		
+      		</tr>
+      
+
+    		
+        </table>
+    	 
+      
+    
+ 				<br>
+ 				
+ 				
+ 				<table id=tblOrdersHeader style="display: none" width=500px>
+    			<tr>
+        		
+						<td width=100% style="background-color: #607B8B">
+							<FONT color=white>Orders List</FONT>
+        		
+        	</td>
+        	
+      		</tr>
+     		</table>
+     	
+    		
+    		<table style="border-color: black; border:1px solid; display: none" id=tblOrdersList width=500px>
+    			<thead>
+    			<tr>
+    				<TD>
+    					
+    					
+    				</TD>
+    				
+        		<td>
+						<B>Order ID</B>
+        		
+        		</td>
+        	  
+        	  <td>
+						<B>Type</B>
+        		
+        		</td>
+        		
+    				<td>
+    					<B>Status</B>
+    				</td>
+        		
+        		<td>
+    					<B>Start Date</B>
+    				</td>
+      		</tr>
+
+      	</thead>
+    			
+    			<tbody id=tblOrders>
+    			
+    			
+        </tbody>
+        </table>
+         
+        <table id=tblButtons style="display: none">
+
+    			<tr>
+        		<td>
+
+        		<input type=button class=Regular id=btnValidateXml value='Validate Jobs' OnClick="fExecute()" disabled=True>
+        		
+        		</td>
+        	  
+    				
+    				
+        		<td>
+
+        		
+        		<input type=button class=Regular id=btnViewReport value='View Report' OnClick="fViewReport()" disabled=True>
+        		</td>
+        		
+      		</tr>
+      
+
+    		
+        </table>
+ 
+ 
+
+        		</td>
+        		<td style="height: 100%; width: 50%; vertical-align:Top" id=tdLeft name=tdLeft>
+        			<table width=500px>
+    			<tr>
+        		
+						<td style="background-color: #607B8B">
+							<FONT color=white>Reports</FONT>
+        		
+        		</td>
+        	  
+        		
+      		</tr>
+     		</table>
+     		
+    		
+    		<table style="border-color: black; border:1px solid" width=500px>
+    			<thead>
+    				<tr>
+    					<td>
+    					<input type=checkbox id=chkAllReports OnClick="fSelectAll(this,'tblReports','chkReport')">
+    				</td>
+        		<td>
+						<B>Order ID</B>
+        		
+        		</td>
+        	  <TD>
+    					
+    					<B>Report Date</B>
+    				</TD>
+    				
+        		
+      		</tr>
+      		
+    			</thead>
+    			<tbody id=tblReports>
+    			</tbody>
+        </table>
+        <table id=tblButtons>
+    			
+    			<tr>
+    				
+        		<td style="width: 45%">
+
+        		<input type=button class=Regular id=btnDeleteReports value='Delete' OnClick="fDeleteReport()">
+        		</td>
+        	  
+    				
+    				
+        		
+        		
+      		</tr>
+      
+    			
+    		
+        </table>
+    	 
+        		</td>
+    		      		</tr>
+        </table>
+ 
+
+</body>
+<script language="vbscript">
+	fInit()
+</script>
+</html>
+

@@ -1,0 +1,11 @@
+1. Create folder "UFT Course" directly under C (or any other place..)
+2. Print\copy to this folder PDF files + exercise PDF file for the students
+3. Put PPT files on instructors PC under this folder
+4. Install UFT 14.53:
+	In the add on screen select also: .NET, WPF
+	Include the additional installations after set up (a small window with few items with checkboxes)
+	Make sure "Microsoft Query" is installed. If not, install it. The way to verify:
+	Open UFT, From menu: Design->Checkpoint->Database checkpoint.
+	Press Next in the opened dialog. You should get a dialog "Instructions for Microsoft Query"
+
+

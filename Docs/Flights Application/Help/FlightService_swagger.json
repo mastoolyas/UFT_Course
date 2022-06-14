@@ -1,0 +1,106 @@
+{
+	"swagger" : "2.0",
+	"info" : {
+		"description" : "",
+		"version" : "1.0.0",
+		"title" : "Flight Service",
+	},
+	"host" : "localhost:8000",
+	"basePath" : "",
+	"schemes" : ["http"],
+	"paths" : {
+		"/Flights_REST/Flights" : {
+			"get" : {
+				"description" : "Returns all flights matching the specified parameters. To return all flights, do not specify any parameters",
+				"operationId" : "GetFlights",
+				"produces" : ["application/xml", "application/json"],
+				"parameters" : [{
+						"in" : "query",
+						"name" : "DepartureCity",
+						"required" : true,
+						"type" : "string",
+						"default" : "London" 
+					},
+					{
+						"in" : "query",
+						"name" : "ArrivalCity",
+						"required" : true,
+						"type" : "string",
+						"default" : "Paris" 
+					},
+					{
+						"in" : "query",
+						"name" : "Date",
+						"required" : true,
+						"type" : "string",
+						"format" : "date",
+						"default" : "0001/01/01" 
+					}]
+			}
+		},
+		"/Flights_REST/Flights/{FlightNumber}" : {
+			"get" : {
+				"description" : "Returns the flight details for the specified flight number.",
+				"operationId" : "GetFlightByNumber",
+				"produces" : ["application/xml", "application/json"]
+			}
+		},
+		"/Flights_REST/FlightOrders" : {
+			"get" : {
+				"description" : "Returns all flight orders that match the specified parameters. To return all flight orders, do not specify any parameters. If there is an error or no results, it returns an exception.",
+				"operationId" : "GetOrders",
+				"produces" : ["application/xml", "application/json"],
+				"parameters" : [{
+						"in" : "query",
+						"name" : "CustomerName",
+						"required" : false,
+						"type" : "string",
+						"default" : "none" 
+					},
+					{
+						"in" : "query",
+						"name" : "OrderNumber",
+						"required" : true,
+						"type" : "integer",
+						"format" : "int32",
+						"default" : "0" 
+					},
+					{
+						"in" : "query",
+						"name" : "Date",
+						"required" : true,
+						"type" : "string",
+						"format" : "date",
+						"default" : "0001/01/01" 
+					}]
+			},
+			"post" : {
+				"description" : "Receives XML with the input parameters: Class, CustomerName, DepartureDate, FlightNumber, NumberOfTickets and Format. Creates a new flight order and returns OrderNumber and TotalPrice.",
+				"operationId" : "ReserveOrder",
+				"consumes" : ["text/xml"],
+				//TODO: build body
+			},
+			"delete" : {
+				"description" : "Deletes all flight orders and returns True or False.",
+				"operationId" : "DeleteAllFlightOrders",			
+			}
+		},
+		"/Flights_REST/FlightOrders/{FlightOrder}" : {
+			"get" : {
+				"description" : "Returns the details of a specific flight order.",
+				"operationId" : "GetFlightOrder",
+				"produces" : ["application/xml", "application/json"],				
+			},
+			"put" : {
+				"description" : "Returns the details of a specific flight order.",
+				"consumes" : ["text/xml"],
+				"operationId" : "UpdateFlightOrder",
+				//TODO: build body
+			},
+			"delete" : {
+				"description" : "Deletes the specified flight order and returns True or False.",
+				"operationId" : "DeleteFlightOrder",
+			}
+		}		
+	}
+}
