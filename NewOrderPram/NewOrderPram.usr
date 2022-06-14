@@ -12,10 +12,8 @@ DevelopTool=AQT
 
 [Actions]
 Action0=Action0\Script.mts
-NewOrder=Action1\Script.mts
-LogOut=Action2\Script.mts
-LogIn=Action4\Script.mts
-SearchOrder=Action5\Script.mts
+SearchOrder=Action1\Script.mts
+LogIn=Action2\Script.mts
 
 [VuserProfiles]
 Profiles=Default Profile
@@ -63,9 +61,3 @@ Action1\ObjectRepository.bdb=
 Action2\Script.mts=
 Action2\Resource.mtr=
 Action2\ObjectRepository.bdb=
-Action4\Script.mts=
-Action4\Resource.mtr=
-Action4\ObjectRepository.bdb=
-Action5\Script.mts=
-Action5\Resource.mtr=
-Action5\ObjectRepository.bdb=

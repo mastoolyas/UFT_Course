@@ -14,13 +14,13 @@ print CurrentDate
 '	print newDate(Iterator)
 'Next
 
-passName = "john"
+'passName = "john"
 
-If wpfWindow("Micro Focus MyFlight Sample").Exist(0) Then
-	wpfWindow("Micro Focus MyFlight Sample").Close
-End If
+'If wpfWindow("Micro Focus MyFlight Sample").Exist(0) Then
+'	wpfWindow("Micro Focus MyFlight Sample").Close
+'End If
 
-SystemUtil.Run FLIGHT_APP
+'SystemUtil.Run FLIGHT_APP
 
 'If WpfWindow("Login").Exist(5) = false Then
 '	ExitRun
@@ -30,12 +30,12 @@ SystemUtil.Run FLIGHT_APP
 'WpfWindow("Login").WpfEdit("agentName").Set passName @@ hightlight id_;_2082978080_;_script infofile_;_ZIP::ssf48.xml_;_
 'WpfWindow("Login").WpfEdit("password").SetSecure "6295be5065320f91c848" @@ hightlight id_;_2082969392_;_script infofile_;_ZIP::ssf49.xml_;_
 'WpfWindow("Login").WpfButton("OK").Click @@ hightlight id_;_2082286784_;_script infofile_;_ZIP::ssf50.xml_;_
-pass1 = "6295be5065320f91c848"
+'pass1 = "6295be5065320f91c848"
 'Ex 10.2
-a = fLogIn(passName, pass1)
-If a = False Then
-	ExitRun
-End If @@ hightlight id_;_1050546_;_script infofile_;_ZIP::ssf60.xml_;_
+'a = fLogIn(passName, pass1)
+'If a = False Then
+'	ExitRun
+'End If @@ hightlight id_;_1050546_;_script infofile_;_ZIP::ssf60.xml_;_
  
 ' 
 'wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("fromCity").Check CheckPoint("fromCity") @@ hightlight id_;_1980128584_;_script infofile_;_ZIP::ssf61.xml_;_
@@ -79,34 +79,39 @@ End If @@ hightlight id_;_1050546_;_script infofile_;_ZIP::ssf60.xml_;_
 'OrderNumber = split(wpfWindow("Micro Focus MyFlight Sample").WpfObject("Order completed").GetROProperty("text"), " ")
 'print OrderNumber(1)
 '
+City1 = DataTable("FromCity", dtLocalSheet)
+City2 = DataTable("ToCity", dtLocalSheet)
+Tic = DataTable("NumOfTickets", dtLocalSheet)
+ClassN = DataTable("ClassName", dtLocalSheet)
+passName = DataTable("Name", dtLocalSheet)
 'Ex 10.2
-a = fCreateOrder ("London", "Paris", "2", currentDate, "First", passName) 
+Parameter("fCreateOrder") = fCreateOrder (City1, City2, Tic, currentDate, ClassN, passName) 
 
 'Ex9.4
-numOFtickets = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").GetROProperty("text")
-pricePerTicket = WpfWindow("Micro Focus MyFlight Sample").WpfObject("pricePerTicket").GetROProperty("text")
-totalPrice = WpfWindow("Micro Focus MyFlight Sample").WpfObject("totalPrice").GetROProperty("text")
+'numOFtickets = wpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").GetROProperty("text")
+'pricePerTicket = WpfWindow("Micro Focus MyFlight Sample").WpfObject("pricePerTicket").GetROProperty("text")
+'totalPrice = WpfWindow("Micro Focus MyFlight Sample").WpfObject("totalPrice").GetROProperty("text")
 
-numOFtickets = CDbl(numOFtickets)
-pricePerTicket = CDbl(mid(pricePerTicket,2))
-totalPrice = CDbl(mid(totalPrice,2))
-
-check = fDivide(totalPrice, pricePerTicket)
-
-If  check = numOFtickets Then
-
-	print "totalPrice is OK"
-else
-	print "totalPrice is not OK"
- @@ hightlight id_;_2118196328_;_script infofile_;_ZIP::ssf73.xml_;_
-End If
+'numOFtickets = CDbl(numOFtickets)
+'pricePerTicket = CDbl(mid(pricePerTicket,2))
+'totalPrice = CDbl(mid(totalPrice,2))
+'
+'check = fDivide(totalPrice, pricePerTicket)
+'
+'If  check = numOFtickets Then
+'
+'	print "totalPrice is OK"
+'else
+'	print "totalPrice is not OK"
+' @@ hightlight id_;_2118196328_;_script infofile_;_ZIP::ssf73.xml_;_
+'End If
 
 
 
 
 'WpfWindow("Micro Focus MyFlight Sample").WpfComboBox("numOfTicketsCombo").Select "4"
 wpfWindow("Micro Focus MyFlight Sample").WpfButton("NEW SEARCH").Click @@ hightlight id_;_1988086760_;_script infofile_;_ZIP::ssf36.xml_;_
-wpfWindow("Micro Focus MyFlight Sample").InsightObject("london").Click
+'wpfWindow("Micro Focus MyFlight Sample").InsightObject("london").Click
 
-wpfWindow("Micro Focus MyFlight Sample").InsightObject("InsightObject").Click
+'wpfWindow("Micro Focus MyFlight Sample").InsightObject("InsightObject").Click
 
